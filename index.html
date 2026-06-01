@@ -1,0 +1,1023 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3MF+Optimizer v3.4 — Texture Override</title>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <style>
+    :root{--bg:#f6f3ea;--ink:#151515;--muted:#68645d;--line:#d9d0c2;--card:#fffdf7;--soft:#eee6d6;--good:#137345;--warn:#996000;--bad:#a22a2a}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 14% -12%,#fff 0,#f6f3ea 42%,#ece3d2 100%);color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;line-height:1.45}.wrap{max-width:1240px;margin:0 auto;padding:34px 18px 70px}
+    header{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:end;margin-bottom:20px} h1{font-size:clamp(34px,6.2vw,78px);line-height:.88;letter-spacing:-.065em;margin:0;text-transform:uppercase}.lead{font-size:14px;color:var(--muted);max-width:760px;margin:16px 0 0}.badge{display:inline-flex;border:1px solid var(--ink);border-radius:999px;padding:6px 10px;font-size:12px;background:#fffdf7;margin:0 6px 6px 0}.grid{display:grid;grid-template-columns:390px 1fr;gap:18px}.card{background:rgba(255,253,247,.9);border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 60px rgba(25,18,7,.06);overflow:hidden}.hd{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.bd{padding:18px}.stack{display:grid;gap:12px}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.drop{border:1.5px dashed #a69b8b;border-radius:20px;background:linear-gradient(135deg,#fffdf7,#f2eadb);padding:28px 18px;text-align:center;min-height:190px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:.16s}.drop.drag{transform:scale(.99);border-color:#111;background:#fff}.drop b{font-size:19px;display:block;margin-bottom:8px}.drop small,.hint{color:var(--muted);font-size:12px}input[type=file]{display:none}select,button{font:inherit}select{width:100%;border:1px solid var(--line);border-radius:14px;background:#fffdf7;padding:11px 12px;color:#111}button{appearance:none;border:1px solid #111;background:#111;color:#fff;border-radius:999px;padding:12px 15px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:8px}button:hover{transform:translateY(-1px)}button:disabled{opacity:.42;cursor:not-allowed;transform:none}.ghost{background:transparent;color:#111}.tiny{font-size:12px;padding:7px 10px}label.opt{display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:start;border:1px solid var(--line);border-radius:16px;padding:12px;background:#fffdf7;cursor:pointer}label.opt input{margin-top:3px}label.opt strong{display:block;font-size:13px}label.opt span{display:block;color:var(--muted);font-size:12px;margin-top:2px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.stat{border:1px solid var(--line);border-radius:18px;padding:13px;background:#fffdf7}.stat b{display:block;font-size:28px;letter-spacing:-.05em}.stat span{font-size:11px;color:var(--muted)}table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}th{position:sticky;top:0;background:#fffdf7;color:var(--muted);font-weight:400;z-index:1}.tablewrap{max-height:470px;overflow:auto;border:1px solid var(--line);border-radius:18px;background:#fffdf7}.mono{font-family:inherit;word-break:break-word}.pill{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:11px;border:1px solid var(--line);background:var(--soft)}.ok{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}details{border:1px solid var(--line);border-radius:18px;background:#fffdf7;padding:12px}summary{cursor:pointer;font-weight:700}.log{white-space:pre-wrap;font-size:12px;color:var(--muted);max-height:250px;overflow:auto;margin-top:10px}.empty{border:1px dashed var(--line);border-radius:18px;padding:22px;color:var(--muted);text-align:center;background:rgba(255,253,247,.58)}.foot{margin-top:22px;color:var(--muted);font-size:12px;max-width:980px}.siteFooter{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;text-transform:lowercase;letter-spacing:.04em}.sectionTitle{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:6px}.checkgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini{font-size:11px;color:var(--muted)}code{background:#f0e7d8;border:1px solid #ddd0bd;border-radius:6px;padding:1px 4px}@media(max-width:940px){header,.grid{grid-template-columns:1fr}.stats,.checkgrid{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="row"><span class="badge">Bambu Studio .3mf</span><span class="badge">v3.4</span><span class="badge">0.4 nozzle</span><span class="badge">80 / 120 / 160 / 200 micron</span><span class="badge">MICRON ADAPTIVE ACTIVE</span><span class="badge">YASIN SPEC ACTIVE</span><span class="badge">SUPPORT LAB</span><span class="badge">TR / EN</span><span class="badge">YASIN TOP Z 0.24</span><span class="badge">TEXTURE OVERRIDE</span><span class="badge">local-only</span></div>
+      <h1>3MF+<br>OPTIMIZER</h1>
+      <p id="leadIntro" class="lead">Bambu Studio proje dosyasını tarayıcıda açar, preset + micron + support profili seçimine göre process config dosyasını ve <code>different_settings_to_system</code> manifest’ini senkron günceller, fark tablosu çıkarır ve yeni .3mf üretir.</p>
+      <p id="leadBuild" class="lead"><strong>Güncel build:</strong> v3.4 — Texture Override eklendi; Yasin Spec fuzzy 0.22 / 0.30 korunur.</p>
+    </div>
+    <div class="card"><div class="bd stack">
+      <div><div class="sectionTitle" id="languageTitle">Dil / Language</div><select id="languageSelect"><option value="tr" selected>Türkçe</option><option value="en">English</option></select></div>
+      <div><strong id="systemTitle">Preset sistemi</strong><br><span id="systemHint" class="hint"><strong>Yasin Aribuga Spec</strong> Tendril_base_v4 içindeki 0.12 mm process + kritik support ayarlarını alır. Diğer profiller micron ve support seviyesine göre adapte olur.</span></div>
+      <div><strong id="supportLabTitle">Support Lab</strong><br><span id="supportLabHint" class="hint">Support profili, ağaç desteğin modele ne kadar yakın duracağını belirler: kolay sökülme / iz azaltma için mesafe artar; daha temiz alt yüzey için mesafe azalır.</span></div>
+      <div><strong id="rimTitle">Rim notu</strong><br><span id="rimHint" class="hint">Üst ağız temiz kalsın istiyorsan Bambu Studio’da modifier ile son 5–10 mm’de fuzzy kapat. Bu site geometri modifier’ı eklemez; process ayarını günceller.</span></div>
+    </div></div>
+  </header>
+
+  <main class="grid">
+    <aside class="card">
+      <div class="hd"><strong id="fileHeader">01 / Dosya</strong><span id="fileState" class="pill">bekliyor</span></div>
+      <div class="bd stack">
+        <label id="drop" class="drop" for="fileInput"><input id="fileInput" type="file" accept=".3mf,.zip"><b id="dropTitle">.3mf bırak / seç</b><small id="dropHint">Dosya lokal açılır; sunucuya yüklenmez.</small></label>
+        <div id="fileMeta" class="empty">Henüz dosya yok.</div>
+      </div>
+
+      <div class="hd"><strong id="profileHeader">02 / Profil</strong><span class="pill">preset</span></div>
+      <div class="bd stack">
+        <div><div class="sectionTitle" id="profileTitle">Baskı amacı</div><select id="profileSelect">
+          <option value="yasin_spec" selected>Yasin Aribuga Spec — Tendril Base v4 / 0.12 support</option>
+          <option value="lamp_fuzzy">Lamp Shade Fuzzy 0.88 — başlık / küre / 0.88 mm</option>
+          <option value="sand_paint">Sand & Paint Prep — zımpara + boya</option>
+          <option value="fine">Fine Balanced — genel kalite</option>
+          <option value="visual">Visual Polish — vitrin / temiz yüzey</option>
+          <option value="strength">Functional Strength — daha rijit</option>
+          <option value="organic">Organic / Thin Wall — heykel, lamba, ince form</option>
+          <option value="support">Support Master — temiz sökülen destek</option>
+          <option value="fast">Fast — kaliteyi bozmadan hız</option>
+          <option value="mini">Mini Detail — küçük parça / yazı / detay</option>
+          <option value="vase">Vase / Lamp Shell — tek duvar deneysel</option>
+        </select></div>
+        <div><div class="sectionTitle" id="micronTitle">Layer height / micron</div><select id="micronSelect">
+          <option value="80">80 micron / 0.08 mm — ultra detail</option>
+          <option value="120" selected>120 micron / 0.12 mm — quality default</option>
+          <option value="160">160 micron / 0.16 mm — production</option>
+          <option value="200">200 micron / 0.20 mm — draft / prototype</option>
+        </select></div>
+        <div><div class="sectionTitle" id="materialTitle">Malzeme davranışı</div><select id="materialSelect">
+          <option value="pla" selected>PLA / PLA+</option><option value="petg">PETG</option><option value="tpu">TPU</option><option value="absasa">ABS / ASA</option><option value="none">Malzeme ayarına dokunma</option>
+        </select></div>
+        <div><div class="sectionTitle" id="supportModeTitle">Support motoru</div><select id="supportMode">
+          <option value="keep" selected>Mevcut support motorunu koru</option>
+          <option value="off">Support kapat</option>
+          <option value="tree_slim">Tree Slim aç — geçerli Bambu değeri</option>
+          <option value="snug">Normal / Snug support aç</option>
+        </select></div>
+        <div><div class="sectionTitle" id="supportProfileTitle">Support profili</div><select id="supportProfile">
+          <option value="profile_default" selected>Profil varsayılanı / dokunma</option>
+          <option value="easy_remove">Easy Remove — kolay sökülür, az iz</option>
+          <option value="balanced_tree">Balanced Tree — kalite / sökme dengesi</option>
+          <option value="clean_underside">Close Contact — daha temiz alt yüzey</option>
+          <option value="max_separation">Max Separation — iz en az, alt yüzey daha riskli</option>
+          <option value="yasin_support">Yasin Support — Tendril_base_v4 support</option>
+        </select></div>
+        <div><div class="sectionTitle" id="textureTitle">Texture / Fuzzy override</div><select id="textureOverride">
+          <option value="profile_default" selected>Profil varsayılanı</option>
+          <option value="keep_file">Dosyadaki fuzzy ayarını koru</option>
+          <option value="off">Fuzzy kapat</option>
+          <option value="subtle">Subtle texture — hafif doku</option>
+          <option value="balanced">Balanced texture — dengeli doku</option>
+          <option value="strong">Strong texture — güçlü doku</option>
+          <option value="yasin_spec">Yasin Spec texture — 0.22 / 0.30</option>
+          <option value="yasin_lite">Yasin Lite texture — ince yüzey güvenli</option>
+        </select></div>
+        <div><div class="sectionTitle" id="riskTitle">Risk seviyesi</div><select id="riskSelect"><option value="safe">Safe — az ve sağlam değişiklik</option><option value="balanced" selected>Balanced — önerilen</option><option value="aggressive">Aggressive — daha deneysel</option></select></div>
+        <div class="checkgrid">
+          <label class="opt"><input id="applyMachine" type="checkbox" checked><span><strong id="machineTitle">0.4 nozzle kontrolü</strong><span id="machineHint">nozzle_diameter / printer_variant değerlerini 0.4’e çeker.</span></span></label>
+          <label class="opt"><input id="enableBrim" type="checkbox"><span><strong id="brimTitle">Auto brim</strong><span id="brimHint">Küçük temas alanı / warping riskinde.</span></span></label>
+          <label class="opt"><input id="enableIroning" type="checkbox"><span><strong id="ironTitle">Top ironing</strong><span id="ironHint">Sadece düz üst yüzey için. Fuzzy başlıkta önerilmez.</span></span></label>
+          <label class="opt"><input id="compatOnly" type="checkbox"><span><strong id="compatTitle">Sadece uyumluluk onar</strong><span id="compatHint">Bozuk enumları düzeltir, profil uygulamaz.</span></span></label>
+        </div>
+        <div id="presetSummary" class="empty">Preset seçilince özet burada görünür.</div>
+      </div>
+
+      <div class="bd stack">
+        <button id="runBtn" disabled>Analiz et & optimize et</button>
+        <button id="downloadBtn" disabled class="ghost">Optimize .3mf indir</button>
+        <button id="reportBtn" disabled class="ghost">Rapor JSON indir</button>
+      </div>
+    </aside>
+
+    <section class="card">
+      <div class="hd"><strong id="reportHeader">03 / Değişiklikler</strong><span id="summaryState" class="pill">hazır değil</span></div>
+      <div class="bd">
+        <div class="stats">
+          <div class="stat"><b id="statFiles">0</b><span id="statFilesLabel">taranan entry</span></div>
+          <div class="stat"><b id="statFound">0</b><span id="statFoundLabel">bulunan ayar</span></div>
+          <div class="stat"><b id="statChanged">0</b><span id="statChangedLabel">değişiklik</span></div>
+          <div class="stat"><b id="statWarn">0</b><span id="statWarnLabel">uyarı</span></div>
+        </div>
+        <div id="diffEmpty" class="empty">Henüz analiz yok.</div>
+        <div id="diffWrap" class="tablewrap" style="display:none"><table><thead><tr><th>Tür</th><th>Ayar</th><th>Dosya</th><th>Eski</th><th>Yeni</th><th>Neden</th></tr></thead><tbody id="diffBody"></tbody></table></div>
+      </div>
+      <div class="hd"><strong id="postHeader">04 / İndirme öncesi kontrol</strong><span id="verifyState" class="pill">bekliyor</span></div>
+      <div class="bd stack">
+        <div id="postCheck" class="empty">Optimize sonrası kritik değerler burada görünür.</div>
+      </div>
+      <div class="bd stack">
+        <details open>
+          <summary id="logTitle">Kontrol raporu</summary>
+          <div id="log" class="log">Hazır.</div>
+        </details>
+        <p id="sliceNote" class="foot">Not: Bu dosyayı Bambu Studio’da açtıktan sonra mutlaka yeniden slice et. Mevcut plate/cache bilgileri eski slice’a ait olabilir; process değerleri değiştiği için nihai G-code’u Studio üretmeli.</p>
+      </div>
+    </section>
+  </main>
+  <footer id="siteFooter" class="siteFooter">by yasin aribuga · v3.4 texture override · bilingual support lab</footer>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const state = { file:null, optimizedBlob:null, report:null, originalName:null, dirty:false };
+const TEXT_EXT_RE = /\.(json|config|xml|model|rels|txt|ini|cfg)$/i;
+
+const PRESET_INFO = {
+  yasin_spec: {
+    title: 'Yasin Aribuga Spec',
+    note: 'Tendril_base_v4.3mf içinden alınan sevilen 0.12 mm ayar seti. Support tarafı özellikle korunur: tree(auto) + tree_hybrid, threshold 55, top Z 0.24, bottom Z 0.12, interface top 4, build plate only. En doğru kullanım: micron 120 ve Support modu Keep.',
+    rules: {
+      layer_height:{v:"0.12", reason:"Tendril_base_v4 sevilen ana katman yüksekliği"},
+      initial_layer_print_height:{v:"0.2", reason:"Tendril_base_v4 ilk katman ayarı"},
+      line_width:{v:"0.42", reason:"0.4 nozzle için sevilen default line width"},
+      outer_wall_line_width:{v:"0.42", reason:"Dış yüzey çizgi genişliği"},
+      inner_wall_line_width:{v:"0.45", reason:"İç duvar çizgi genişliği"},
+      top_surface_line_width:{v:"0.42", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_line_width:{v:"0.42", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      wall_loops:{v:"3", reason:"Tendril_base_v4 kabuk davranışı"},
+      sparse_infill_density:{v:"18%", reason:"Tendril_base_v4 dolgu yoğunluğu"},
+      skeleton_infill_density:{v:"18%", reason:"Bambu internal density senkronu"},
+      skin_infill_density:{v:"18%", reason:"Bambu internal density senkronu"},
+      sparse_infill_pattern:{v:"gyroid", reason:"Grid yerine gyroid akışı"},
+      top_shell_layers:{v:"5", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      top_shell_thickness:{v:"0.6", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      bottom_shell_layers:{v:"5", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      bottom_shell_thickness:{v:"0", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      bottom_surface_density:{v:"100%", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      bottom_surface_pattern:{v:"monotonic", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      seam_position:{v:"aligned", reason:"Seam davranışı Tendril_base_v4 ile aynı"},
+      has_scarf_joint_seam:{v:"0", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      apply_scarf_seam_on_circles:{v:"1", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      fuzzy_skin:{v:"external", reason:"Tendril_base_v4 dış fuzzy ayarı"},
+      fuzzy_skin_thickness:{v:"0.22", reason:"Tendril_base_v4 belirgin fuzzy dokusu"},
+      fuzzy_skin_point_distance:{v:"0.3", reason:"Tendril_base_v4 fuzzy nokta sıklığı"},
+      fuzzy_skin_first_layer:{v:"0", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      fuzzy_skin_mode:{v:"displacement", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      fuzzy_skin_noise_type:{v:"classic", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      outer_wall_speed:{v:["80", "80"], reason:"Tendril_base_v4 dış duvar hızı"},
+      inner_wall_speed:{v:["350", "350"], reason:"Tendril_base_v4 iç duvar hızı"},
+      small_perimeter_speed:{v:["50%", "50%"], reason:"Küçük halka/perimeter davranışı"},
+      top_surface_speed:{v:["200", "200"], reason:"Tendril_base_v4 top surface hızı"},
+      internal_solid_infill_speed:{v:["350", "350"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      sparse_infill_speed:{v:["430", "430"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      gap_infill_speed:{v:["350", "350"], reason:"Tendril_base_v4 gap infill hızı"},
+      bridge_speed:{v:["50", "50"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      initial_layer_speed:{v:["50", "50"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      initial_layer_infill_speed:{v:["105", "105"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      detect_overhang_wall:{v:"1", reason:"Overhang algısı aktif"},
+      enable_overhang_speed:{v:["1", "1"], reason:"Overhang hız kademeleri aktif"},
+      overhang_1_4_speed:{v:["60", "60"], reason:"Tendril_base_v4 hafif overhang"},
+      overhang_2_4_speed:{v:["30", "30"], reason:"Tendril_base_v4 orta overhang"},
+      overhang_3_4_speed:{v:["10", "10"], reason:"Tendril_base_v4 riskli overhang"},
+      overhang_4_4_speed:{v:["10", "10"], reason:"Tendril_base_v4 ağır overhang"},
+      overhang_totally_speed:{v:["10", "10"], reason:"Tendril_base_v4 tam desteksiz çizgi"},
+      overhang_fan_speed:{v:["100"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      overhang_fan_threshold:{v:["50%"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      enable_overhang_bridge_fan:{v:["1"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      fan_min_speed:{v:["100"], reason:"Tendril_base_v4 soğutma"},
+      fan_max_speed:{v:["100"], reason:"Tendril_base_v4 soğutma"},
+      auxiliary_fan:{v:"1", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      additional_cooling_fan_speed:{v:["70"], reason:"Tendril_base_v4 aux fan"},
+      slow_down_min_speed:{v:["20"], reason:"Tendril_base_v4 minimum slow-down hızı"},
+      slow_down_layer_time:{v:["8"], reason:"Tendril_base_v4 minimum layer time"},
+      full_fan_speed_layer:{v:["0"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      first_x_layer_fan_speed:{v:["0"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      first_x_layer_part_fan_speed:{v:["0"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      enable_support:{v:"1", reason:"Yasin Spec kritik support: açık"},
+      support_type:{v:"tree(auto)", reason:"Yasin Spec kritik support tipi"},
+      support_style:{v:"tree_hybrid", reason:"Yasin Spec kritik support style"},
+      support_threshold_angle:{v:"55", reason:"Yasin Spec kritik support eşiği"},
+      support_on_build_plate_only:{v:"1", reason:"Yasin Spec support sadece plate üzerinden"},
+      support_top_z_distance:{v:"0.24", reason:"Yasin Spec support üst Z boşluğu — daha kolay söküm / daha az iz"},
+      support_bottom_z_distance:{v:"0.12", reason:"Yasin Spec support alt Z boşluğu"},
+      support_interface_top_layers:{v:"4", reason:"Yasin Spec support interface top layer"},
+      support_interface_bottom_layers:{v:"2", reason:"Yasin Spec support interface bottom layer"},
+      support_interface_pattern:{v:"rectilinear", reason:"Yasin Spec support interface pattern"},
+      support_interface_spacing:{v:"0.5", reason:"Yasin Spec support interface spacing"},
+      support_bottom_interface_spacing:{v:"0.5", reason:"Yasin Spec support bottom interface spacing"},
+      support_interface_speed:{v:["80", "80"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_speed:{v:["150", "150"], reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_base_pattern:{v:"default", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_base_pattern_spacing:{v:"2.5", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_angle:{v:"0", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_object_xy_distance:{v:"0.35", reason:"Yasin Spec support XY mesafe"},
+      support_remove_small_overhang:{v:"1", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_interface_not_for_body:{v:"1", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_interface_loop_pattern:{v:"0", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      tree_support_branch_angle:{v:"45", reason:"Yasin Spec tree branch angle"},
+      tree_support_branch_diameter:{v:"2", reason:"Yasin Spec tree branch diameter"},
+      tree_support_branch_diameter_angle:{v:"5", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      tree_support_branch_distance:{v:"5", reason:"Yasin Spec tree branch distance"},
+      tree_support_wall_count:{v:"-1", reason:"Yasin Spec tree wall count"},
+      support_critical_regions_only:{v:"0", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_expansion:{v:"0", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_object_first_layer_gap:{v:"0.2", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      independent_support_layer_height:{v:"1", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      flush_into_support:{v:"1", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_filament:{v:"0", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      support_interface_filament:{v:"0", reason:"Tendril_base_v4 içinden alınan Yasin Aribuga Spec ayarı"},
+      brim_type:{v:"outer_only", reason:"Tendril_base_v4 brim tipi"},
+      brim_width:{v:"5", reason:"Tendril_base_v4 brim genişliği"},
+      brim_object_gap:{v:"0.1", reason:"Tendril_base_v4 brim boşluğu"},
+      nozzle_temperature:{v:["215"], reason:"Tendril_base_v4 PLA nozzle sıcaklığı"},
+      nozzle_temperature_initial_layer:{v:["220"], reason:"Tendril_base_v4 ilk katman sıcaklığı"},
+      filament_max_volumetric_speed:{v:["12"], reason:"Tendril_base_v4 PLA volumetric limit"},
+      filament_flow_ratio:{v:["0.98"], reason:"Tendril_base_v4 filament flow"},
+      elefant_foot_compensation:{v:"0.15", reason:"Tendril_base_v4 elephant foot kompanzasyonu"},
+      resolution:{v:"0.012", reason:"Tendril_base_v4 kontur çözünürlüğü"}
+    }
+  },
+  lamp_fuzzy: {
+    title: 'Lamp Shade Fuzzy 0.88',
+    note: '0.88 mm küre/başlık: 2 duvar, 0 infill, random seam, external fuzzy 0.10 / 0.60. Üst rim için Bambu’da modifier ile fuzzy kapatman hâlâ en temiz çözüm.',
+    rules: {
+      layer_height:{v:'0.12', reason:'Küre formunda pürüzsüz eğri için 0.12 mm'},
+      initial_layer_print_height:{v:'0.2', reason:'İlk katman güvenliği'},
+      line_width:{v:'0.42', reason:'0.4 nozzle için güvenli default'},
+      outer_wall_line_width:{v:'0.42', reason:'Dış kabuk çizgisi stabil'},
+      inner_wall_line_width:{v:'0.46', reason:'0.42 + 0.46 = 0.88 mm kabuğu tamamlar'},
+      top_surface_line_width:{v:'0.42', reason:'Varsa üst solid çizgi kontrolü'},
+      wall_loops:{v:'2', reason:'0.88 mm et kalınlığı için 2 duvar'},
+      sparse_infill_density:{v:'0%', reason:'Başlık kabuğunda infill istemiyoruz'},
+      skeleton_infill_density:{v:'0%', reason:'Bambu internal sparse/skeleton density sıfırlanır'},
+      skin_infill_density:{v:'0%', reason:'Kabuk içinde gereksiz skin infill olmasın'},
+      sparse_infill_pattern:{v:'gyroid', reason:'İnfill açılırsa grid çakışmasını engellemek için'},
+      top_shell_layers:{v:'0', reason:'Üst açık başlıkta top cap kapatmasın'},
+      top_shell_thickness:{v:'0', reason:'Üst açık form'},
+      bottom_shell_layers:{v:'1', reason:'Alt tarafda minimal tutunma/temizlik'},
+      bottom_shell_thickness:{v:'0.12', reason:'1 x 0.12 mm alt shell'},
+      seam_position:{v:'random', reason:'Fuzzy skin seam noktalarını dağıtıp saklar'},
+      has_scarf_joint_seam:{v:'0', reason:'Fuzzy yüzeyde scarf seam gereksiz karmaşa yaratabilir'},
+      fuzzy_skin:{v:'external', reason:'Sadece dış yüzeye doku ver'},
+      fuzzy_skin_thickness:{v:'0.10', reason:'Karakterli ama hâlâ kontrollü fuzzy yoğunluğu'},
+      fuzzy_skin_point_distance:{v:'0.60', reason:'Doku sıklığı: belirgin ama çok yığılmayan'},
+      fuzzy_skin_mode:{v:'displacement', reason:'Bambu’nun klasik fuzzy displacement modu'},
+      outer_wall_speed:{v:['60'], reason:'Süreyi patlatmadan dış duvar. Dalga görürsen 45’e in'},
+      inner_wall_speed:{v:['60'], reason:'İç duvar dış ile dengeli aksın'},
+      small_perimeter_speed:{v:['25'], reason:'Üst daralan küçük halkalarda kontrol'},
+      top_surface_speed:{v:['70'], reason:'Rim/ufak solid alanlarda 200 yerine kontrollü'},
+      internal_solid_infill_speed:{v:['80'], reason:'Varsa ufak solid alanlar sakin basılsın'},
+      gap_infill_speed:{v:['30'], reason:'İnce aralıklarda taşma/dalga azaltma'},
+      detect_overhang_wall:{v:'1', reason:'Küre eğimlerinde overhang hızları devreye girsin'},
+      enable_overhang_speed:{v:['1'], reason:'Overhang hız kademelerini aktif et'},
+      overhang_1_4_speed:{v:['60'], reason:'Hafif overhang normal hızda'},
+      overhang_2_4_speed:{v:['50'], reason:'Orta eğimde yavaşlat'},
+      overhang_3_4_speed:{v:['35'], reason:'Riskli eğimde daha kontrollü'},
+      overhang_4_4_speed:{v:['25'], reason:'Ağır overhang'},
+      overhang_totally_speed:{v:['20'], reason:'Bridge gibi tamamen desteksiz çizgiler'},
+      bridge_speed:{v:['20'], reason:'Açık ağız/tepe risklerinde kontrollü bridge'},
+      fan_min_speed:{v:['90'], reason:'PLA başlıkta soğutma yüksek'},
+      fan_max_speed:{v:['100'], reason:'Üst daralan bölgede soğuma'},
+      slow_down_min_speed:{v:['20'], reason:'Çok küçük layerlarda aşırı dur-kalk olmasın'},
+      slow_down_layer_time:{v:'10', reason:'Üst daralmada minimum layer time hedefi'},
+      support_on_build_plate_only:{v:'1', reason:'Support gerekirse dış yüzeye zarar vermesin'},
+      resolution:{v:'0.012', reason:'İnce kontur çözünürlüğü'}
+    }
+  },
+  sand_paint: {
+    title: 'Sand & Paint Prep',
+    note: 'Zımpara + astar + boya için: fuzzy kapalı, daha tok kabuk, kontrollü seam, yavaş dış duvar, düşük/orta gyroid dolgu. Amaç baskıdan sonra düzgün işlenebilir yüzey.',
+    rules: {
+      layer_height:{v:'0.12', reason:'Zımpara öncesi ince katman çizgisi'},
+      initial_layer_print_height:{v:'0.2', reason:'İlk katman güvenliği'},
+      line_width:{v:'0.42', reason:'0.4 nozzle güvenli çizgi genişliği'},
+      outer_wall_line_width:{v:'0.42', reason:'Dış yüzeyde hassas çizgi'},
+      inner_wall_line_width:{v:'0.45', reason:'İç kabuk tok kalsın'},
+      internal_solid_infill_line_width:{v:'0.42', reason:'Katı yüzeylerde dış çizgiyle uyum'},
+      sparse_infill_line_width:{v:'0.45', reason:'Dolgu stabilitesi'},
+      wall_loops:{v:'4', reason:'Zımpara payı ve boya sonrası tok kabuk'},
+      top_shell_layers:{v:'5', reason:'Üst yüzeyleri zımpara/astar için kapat'},
+      bottom_shell_layers:{v:'4', reason:'Alt kabuk sağlamlığı'},
+      top_shell_thickness:{v:'0.6', reason:'5 x 0.12 mm üst kabuk'},
+      bottom_shell_thickness:{v:'0.48', reason:'4 x 0.12 mm alt kabuk'},
+      sparse_infill_density:{v:'10%', reason:'Zımparada bastırmaya dayanacak düşük destek'},
+      sparse_infill_pattern:{v:'gyroid', reason:'Grid izlerini ve nozzle çakışmasını azaltır'},
+      infill_wall_overlap:{v:'12%', reason:'Dolgu izi dış yüzeye çok basmasın'},
+      seam_position:{v:'back', reason:'Zımpara için seam tek hatta/gizli tarafta toplansın'},
+      has_scarf_joint_seam:{v:'1', reason:'Düz yüzeyde seam geçişini yumuşatabilir'},
+      fuzzy_skin:{v:'none', reason:'Boya/zımpara için fuzzy kapalı'},
+      fuzzy_skin_thickness:{v:'0', reason:'Fuzzy devre dışı'},
+      fuzzy_skin_point_distance:{v:'0.8', reason:'Fuzzy kapalı; placeholder güvenli değer'},
+      ironing_type:{v:'no ironing', reason:'Boya öncesi yüzeyde ironing parlaması/iz istemiyoruz'},
+      outer_wall_speed:{v:['40'], reason:'Düzgün zımparalanabilir dış yüzey'},
+      inner_wall_speed:{v:['80'], reason:'İç duvar süresi dengeli'},
+      small_perimeter_speed:{v:['25'], reason:'Küçük alanlarda kontrol'},
+      top_surface_speed:{v:['50'], reason:'Üst yüzeylerde daha sakin çizgi'},
+      internal_solid_infill_speed:{v:['80'], reason:'Katı dolgular dengeli'},
+      sparse_infill_speed:{v:['120'], reason:'Dolgu hızlı kalabilir'},
+      gap_infill_speed:{v:['35'], reason:'Küçük boşluklarda taşma azaltma'},
+      detect_overhang_wall:{v:'1', reason:'Overhang duvarlarını yavaşlat'},
+      enable_overhang_speed:{v:['1'], reason:'Overhang hız kademeleri aktif'},
+      overhang_1_4_speed:{v:['50'], reason:'Hafif overhang'},
+      overhang_2_4_speed:{v:['40'], reason:'Orta overhang'},
+      overhang_3_4_speed:{v:['30'], reason:'Riskli overhang'},
+      overhang_4_4_speed:{v:['22'], reason:'Ağır overhang'},
+      overhang_totally_speed:{v:['18'], reason:'Tam desteksiz/bridge benzeri'},
+      bridge_speed:{v:['22'], reason:'Bridge alanlarda daha temiz alt çizgi'},
+      fan_min_speed:{v:['80'], reason:'PLA yüzey stabilitesi'},
+      fan_max_speed:{v:['100'], reason:'PLA yüzey stabilitesi'},
+      resolution:{v:'0.012', reason:'Yüzey kontur hassasiyeti'}
+    }
+  },
+  fine: {
+    title:'Fine Balanced', note:'Genel 0.4 nozzle / 0.12 mm kalite profili.',
+    rules:{ layer_height:{v:'0.12',reason:'120 micron kalite'}, initial_layer_print_height:{v:'0.2',reason:'İlk katman güvenliği'}, line_width:{v:'0.42',reason:'Bambu 0.4 güvenli çizgi'}, outer_wall_line_width:{v:'0.42',reason:'Dış yüzey'}, inner_wall_line_width:{v:'0.45',reason:'İç duvar'}, wall_loops:{v:'3',reason:'Genel kalite'}, top_shell_layers:{v:'5',reason:'Üst kapama'}, bottom_shell_layers:{v:'5',reason:'Alt kapama'}, sparse_infill_density:{v:'15%',reason:'Dengeli dolgu'}, sparse_infill_pattern:{v:'gyroid',reason:'Grid çakışmasını azaltır'}, outer_wall_speed:{v:['80'],reason:'Genel dış duvar'}, top_surface_speed:{v:['50'],reason:'Üst yüzey'}, detect_overhang_wall:{v:'1',reason:'Overhang algıla'}, resolution:{v:'0.012',reason:'Hassas kontur'} }
+  },
+  visual: {
+    title:'Visual Polish', note:'Daha temiz görünür yüzey; süre biraz artar.',
+    rules:{ layer_height:{v:'0.12',reason:'İnce katman'}, line_width:{v:'0.42',reason:'Güvenli çizgi'}, outer_wall_line_width:{v:'0.42',reason:'Dış yüzey'}, inner_wall_line_width:{v:'0.45',reason:'İç duvar'}, wall_loops:{v:'3',reason:'Yüzey stabilitesi'}, top_shell_layers:{v:'5',reason:'Üst yüzey'}, bottom_shell_layers:{v:'5',reason:'Alt yüzey'}, sparse_infill_density:{v:'12%',reason:'Daha az iz'}, sparse_infill_pattern:{v:'gyroid',reason:'Az çakışma'}, seam_position:{v:'back',reason:'Dikişi gizle'}, outer_wall_speed:{v:['50'],reason:'Yavaş dış yüzey'}, top_surface_speed:{v:['40'],reason:'Temiz üst yüzey'}, gap_infill_speed:{v:['40'],reason:'Küçük boşluk kalitesi'}, detect_overhang_wall:{v:'1',reason:'Overhang kontrol'} }
+  },
+  strength: {
+    title:'Functional Strength', note:'Daha rijit ve tok parça.',
+    rules:{ layer_height:{v:'0.16',reason:'Dayanım/süre dengesi'}, initial_layer_print_height:{v:'0.2',reason:'İlk katman'}, line_width:{v:'0.45',reason:'Daha tok çizgi'}, outer_wall_line_width:{v:'0.45',reason:'Dış kabuk'}, inner_wall_line_width:{v:'0.48',reason:'İç kabuk'}, wall_loops:{v:'4',reason:'Dayanım'}, top_shell_layers:{v:'5',reason:'Kabuk'}, bottom_shell_layers:{v:'5',reason:'Kabuk'}, sparse_infill_density:{v:'25%',reason:'Rijitlik'}, sparse_infill_pattern:{v:'gyroid',reason:'Çok yönlü dayanım'}, outer_wall_speed:{v:['70'],reason:'Dengeli'}, inner_wall_speed:{v:['120'],reason:'Süre'}, infill_wall_overlap:{v:'18%',reason:'Dolgu-duvar bağı'} }
+  },
+  organic: {
+    title:'Organic / Thin Wall', note:'Heykel, organik form, ince detay.',
+    rules:{ layer_height:{v:'0.12',reason:'İnce organik form'}, line_width:{v:'0.42',reason:'Güvenli çizgi'}, outer_wall_line_width:{v:'0.42',reason:'Dış yüzey'}, inner_wall_line_width:{v:'0.45',reason:'İç duvar'}, wall_generator:{v:'arachne',reason:'Adaptif duvar'}, detect_thin_wall:{v:'1',reason:'İnce detay'}, wall_loops:{v:'2',reason:'İnce form'}, sparse_infill_density:{v:'8%',reason:'Az dolgu'}, sparse_infill_pattern:{v:'gyroid',reason:'Az çakışma'}, seam_position:{v:'aligned',reason:'Dikiş kontrolü'}, outer_wall_speed:{v:['55'],reason:'Yüzey'}, detect_overhang_wall:{v:'1',reason:'Overhang'} }
+  },
+  support: {
+    title:'Support Master', note:'Destek gereken formlar için sökülebilir tree slim.',
+    rules:{ layer_height:{v:'0.12',reason:'Kalite'}, line_width:{v:'0.42',reason:'Güvenli çizgi'}, support_top_z_distance:{v:'0.2',reason:'Sökülebilir destek'}, support_bottom_z_distance:{v:'0.2',reason:'Sökülebilir destek'}, support_interface_top_layers:{v:'2',reason:'Temas yüzeyi'}, support_interface_bottom_layers:{v:'2',reason:'Temas yüzeyi'}, support_interface_spacing:{v:'0.5',reason:'Kolay sökme'}, support_object_xy_distance:{v:'0.35',reason:'Yan boşluk'}, support_line_width:{v:'0.42',reason:'Destek çizgisi'}, support_on_build_plate_only:{v:'1',reason:'Yüzey hasarını azalt'}, outer_wall_speed:{v:['60'],reason:'Yüzey'}, detect_overhang_wall:{v:'1',reason:'Overhang algıla'} }
+  },
+  fast: {
+    title:'Fast 0.12', note:'0.12 kalıp süreyi azaltır.',
+    rules:{ layer_height:{v:'0.12',reason:'Kalite korunur'}, line_width:{v:'0.42',reason:'Güvenli çizgi'}, wall_loops:{v:'2',reason:'Süre azalt'}, top_shell_layers:{v:'4',reason:'Yeterli kapama'}, bottom_shell_layers:{v:'4',reason:'Yeterli kapama'}, sparse_infill_density:{v:'10%',reason:'Süre'}, sparse_infill_pattern:{v:'gyroid',reason:'Stabil'}, outer_wall_speed:{v:['90'],reason:'Hız'}, inner_wall_speed:{v:['160'],reason:'Hız'}, sparse_infill_speed:{v:['180'],reason:'Hız'}, top_surface_speed:{v:['80'],reason:'Denge'} }
+  },
+  mini: {
+    title:'Mini Detail', note:'Küçük parça/yazı detay.',
+    rules:{ layer_height:{v:'0.08',reason:'Mikro detay'}, initial_layer_print_height:{v:'0.16',reason:'İnce ilk katman'}, line_width:{v:'0.38',reason:'Küçük detay'}, outer_wall_line_width:{v:'0.38',reason:'Detay'}, inner_wall_line_width:{v:'0.42',reason:'İç duvar'}, wall_loops:{v:'3',reason:'Detay stabilitesi'}, sparse_infill_density:{v:'15%',reason:'Denge'}, outer_wall_speed:{v:['35'],reason:'Detay'}, small_perimeter_speed:{v:['20'],reason:'Küçük kontur'}, top_surface_speed:{v:['35'],reason:'Üst detay'} }
+  },
+  vase: {
+    title:'Vase / Lamp Shell', note:'Tek duvar deneysel; 0.88 mm kabuk için önerilmez.',
+    rules:{ layer_height:{v:'0.16',reason:'Vase süre/kalite'}, line_width:{v:'0.55',reason:'Tek duvarı biraz kalınlaştır'}, outer_wall_line_width:{v:'0.55',reason:'Tek duvar'}, wall_loops:{v:'1',reason:'Tek duvar'}, sparse_infill_density:{v:'0%',reason:'Vase dolgusuz'}, top_shell_layers:{v:'0',reason:'Üst açık'}, bottom_shell_layers:{v:'1',reason:'Alt minimal'}, seam_position:{v:'aligned',reason:'Tek seam'}, outer_wall_speed:{v:['45'],reason:'Vase dış yüzey'} }
+  }
+};
+
+const MACHINE_RULES = {
+  nozzle_diameter:{v:['0.4'], reason:'Hedef profil 0.4 nozzle'},
+  printer_variant:{v:'0.4', reason:'Printer varyantını 0.4 nozzle ile eşleştir'},
+  min_layer_height:{v:['0.08'], reason:'0.4 nozzle min layer güvenliği'},
+  max_layer_height:{v:['0.28'], reason:'0.4 nozzle max layer güvenliği'}
+};
+const SUPPORT_MODE_RULES = {
+  off:{ enable_support:{v:'0',reason:'Support kapat'}, support_style:{v:'default',reason:'Support kapalıyken varsayılan stil'} },
+  tree_slim:{ enable_support:{v:'1',reason:'Support aç'}, support_type:{v:'tree(auto)',reason:'Organik formlarda tree support'}, support_style:{v:'tree_slim',reason:'Bambu geçerli Tree Slim enum değeri'}, support_threshold_angle:{v:'30',reason:'Destek eşiği'}, support_top_z_distance:{v:'0.2',reason:'Sökülebilir destek'}, support_bottom_z_distance:{v:'0.2',reason:'Sökülebilir destek'}, support_interface_top_layers:{v:'2',reason:'Temas yüzeyi'}, support_interface_bottom_layers:{v:'2',reason:'Temas yüzeyi'}, support_interface_spacing:{v:'0.5',reason:'Kolay sökme'}, support_object_xy_distance:{v:'0.35',reason:'Yan boşluk'}, support_on_build_plate_only:{v:'1',reason:'Yüzey izini azalt'} },
+  snug:{ enable_support:{v:'1',reason:'Support aç'}, support_type:{v:'normal(auto)',reason:'Normal support'}, support_style:{v:'snug',reason:'Snug support'}, support_threshold_angle:{v:'30',reason:'Destek eşiği'}, support_top_z_distance:{v:'0.2',reason:'Sökülebilir destek'}, support_bottom_z_distance:{v:'0.2',reason:'Sökülebilir destek'}, support_interface_top_layers:{v:'2',reason:'Temas yüzeyi'}, support_interface_bottom_layers:{v:'2',reason:'Temas yüzeyi'}, support_interface_spacing:{v:'0.5',reason:'Kolay sökme'} }
+};
+
+function supportProfileRules(profileKey, micronKey, supportMode){
+  if(profileKey === 'profile_default' || supportMode === 'off') return {};
+  const z = {
+    easy_remove:      { '80':'0.18', '120':'0.24', '160':'0.28', '200':'0.32' },
+    balanced_tree:    { '80':'0.16', '120':'0.20', '160':'0.24', '200':'0.28' },
+    clean_underside:  { '80':'0.08', '120':'0.12', '160':'0.16', '200':'0.20' },
+    max_separation:   { '80':'0.24', '120':'0.30', '160':'0.34', '200':'0.40' }
+  };
+  const bottomZ = { '80':'0.08', '120':'0.12', '160':'0.16', '200':'0.20' };
+  const label = (MICRON_INFO[micronKey] || MICRON_INFO['120']).label;
+  const r = {};
+  const add = (key, v, reason) => setRule(r, key, v, reason);
+  if(profileKey === 'yasin_support'){
+    add('enable_support','1','Yasin Support: destek açık');
+    add('support_type','tree(auto)','Yasin Support: tree(auto)');
+    add('support_style','tree_hybrid','Yasin Support: Tendril_base_v4 tree_hybrid');
+    add('support_threshold_angle','55','Yasin Support: 55° eşik');
+    add('support_on_build_plate_only','1','Yasin Support: sadece build plate üzerinden');
+    add('support_top_z_distance','0.24','Yasin Support: üst Z boşluğu — daha kolay söküm / daha az iz');
+    add('support_bottom_z_distance','0.12','Yasin Support: alt Z boşluğu');
+    add('support_interface_top_layers','4','Yasin Support: interface top 4');
+    add('support_interface_bottom_layers','2','Yasin Support: interface bottom 2');
+    add('support_interface_pattern','rectilinear','Yasin Support: rectilinear interface');
+    add('support_interface_spacing','0.5','Yasin Support: interface spacing');
+    add('support_bottom_interface_spacing','0.5','Yasin Support: bottom interface spacing');
+    add('support_object_xy_distance','0.35','Yasin Support: XY mesafe');
+    add('tree_support_branch_angle','45','Yasin Support: branch angle');
+    add('tree_support_branch_diameter','2','Yasin Support: branch diameter');
+    add('tree_support_branch_distance','5','Yasin Support: branch distance');
+    add('tree_support_wall_count','-1','Yasin Support: tree wall count');
+    return r;
+  }
+  add('enable_support','1',`${label} support profili: destek açık`);
+  if(supportMode === 'keep'){
+    add('support_type','tree(auto)',`${label} support profili: tree(auto)`);
+    add('support_style', profileKey === 'clean_underside' ? 'tree_hybrid' : 'tree_slim', `${label} support profili: tree style`);
+  }
+  add('support_on_build_plate_only','1',`${label} support profili: dış yüzey izini azalt`);
+  add('support_top_z_distance',z[profileKey][micronKey] || z[profileKey]['120'],`${label} support profili: üst Z mesafesi`);
+  add('support_bottom_z_distance',bottomZ[micronKey] || bottomZ['120'],`${label} support profili: alt Z mesafesi`);
+  add('support_interface_pattern','rectilinear',`${label} support profili: kontrollü interface`);
+  if(profileKey === 'easy_remove'){
+    add('support_threshold_angle','50',`${label} Easy Remove: daha seçici support`);
+    add('support_interface_top_layers','2',`${label} Easy Remove: az interface izi`);
+    add('support_interface_bottom_layers','1',`${label} Easy Remove: az interface`);
+    add('support_interface_spacing','0.65',`${label} Easy Remove: daha seyrek interface`);
+    add('support_bottom_interface_spacing','0.65',`${label} Easy Remove: daha seyrek bottom interface`);
+    add('support_object_xy_distance','0.45',`${label} Easy Remove: yan boşluk artar`);
+    add('tree_support_branch_angle','45',`${label} Easy Remove: tree branch angle`);
+    add('tree_support_branch_diameter','2',`${label} Easy Remove: ince branch`);
+    add('tree_support_branch_distance','6',`${label} Easy Remove: branch aralığı`);
+    add('tree_support_wall_count','0',`${label} Easy Remove: daha hafif tree`);
+  } else if(profileKey === 'balanced_tree'){
+    add('support_threshold_angle','45',`${label} Balanced Tree: dengeli support eşiği`);
+    add('support_interface_top_layers','3',`${label} Balanced Tree: dengeli interface`);
+    add('support_interface_bottom_layers','2',`${label} Balanced Tree: bottom interface`);
+    add('support_interface_spacing','0.5',`${label} Balanced Tree: interface spacing`);
+    add('support_bottom_interface_spacing','0.5',`${label} Balanced Tree: bottom interface spacing`);
+    add('support_object_xy_distance','0.35',`${label} Balanced Tree: XY mesafe`);
+    add('tree_support_branch_angle','45',`${label} Balanced Tree: branch angle`);
+    add('tree_support_branch_diameter','2',`${label} Balanced Tree: branch diameter`);
+    add('tree_support_branch_distance','5',`${label} Balanced Tree: branch distance`);
+    add('tree_support_wall_count','-1',`${label} Balanced Tree: Bambu default wall count`);
+  } else if(profileKey === 'clean_underside'){
+    add('support_threshold_angle','42',`${label} Close Contact: daha erken support`);
+    add('support_interface_top_layers','4',`${label} Close Contact: temiz alt yüzey için güçlü interface`);
+    add('support_interface_bottom_layers','2',`${label} Close Contact: bottom interface`);
+    add('support_interface_spacing','0.35',`${label} Close Contact: sık interface`);
+    add('support_bottom_interface_spacing','0.35',`${label} Close Contact: sık bottom interface`);
+    add('support_object_xy_distance','0.25',`${label} Close Contact: yakın XY mesafe`);
+    add('tree_support_branch_angle','40',`${label} Close Contact: daha kontrollü branch`);
+    add('tree_support_branch_diameter','2',`${label} Close Contact: branch diameter`);
+    add('tree_support_branch_distance','4',`${label} Close Contact: sık branch`);
+    add('tree_support_wall_count','-1',`${label} Close Contact: güçlü tree`);
+  } else if(profileKey === 'max_separation'){
+    add('support_threshold_angle','55',`${label} Max Separation: sadece gerekli bölgelere destek`);
+    add('support_interface_top_layers','1',`${label} Max Separation: iz azaltmak için minimal interface`);
+    add('support_interface_bottom_layers','1',`${label} Max Separation: minimal bottom interface`);
+    add('support_interface_spacing','0.8',`${label} Max Separation: seyrek interface`);
+    add('support_bottom_interface_spacing','0.8',`${label} Max Separation: seyrek bottom interface`);
+    add('support_object_xy_distance','0.55',`${label} Max Separation: yan izleri azalt`);
+    add('tree_support_branch_angle','50',`${label} Max Separation: daha açık ağaç`);
+    add('tree_support_branch_diameter','2.5',`${label} Max Separation: stabil ama ayrı branch`);
+    add('tree_support_branch_distance','7',`${label} Max Separation: branch mesafesi`);
+    add('tree_support_wall_count','0',`${label} Max Separation: hafif tree`);
+  }
+  return r;
+}
+
+const BRIM_RULES = { brim_type:{v:'auto_brim',reason:'Yapışma riski için auto brim'}, brim_width:{v:'5',reason:'5 mm brim'}, brim_object_gap:{v:'0.1',reason:'Sökülebilir brim boşluğu'} };
+const IRON_RULES = { ironing_type:{v:'top',reason:'Düz üst yüzey için ironing'}, ironing_flow:{v:'10%',reason:'Güvenli ironing flow'}, ironing_spacing:{v:'0.15',reason:'İnce ironing aralığı'}, ironing_speed:{v:'30',reason:'Yavaş ironing'} };
+const MATERIAL_RULES = {
+  pla:{ filament_max_volumetric_speed:{v:['12'],reason:'PLA güvenli volumetric limit'}, fan_min_speed:{v:['80'],reason:'PLA soğutma'}, fan_max_speed:{v:['100'],reason:'PLA soğutma'} },
+  petg:{ filament_max_volumetric_speed:{v:['8'],reason:'PETG daha düşük volumetric'}, fan_min_speed:{v:['40'],reason:'PETG aşırı fan istemez'}, fan_max_speed:{v:['70'],reason:'PETG fan sınırı'} },
+  tpu:{ filament_max_volumetric_speed:{v:['3.5'],reason:'TPU yavaş akış'}, outer_wall_speed:{v:['25'],reason:'TPU dış duvar'}, inner_wall_speed:{v:['35'],reason:'TPU iç duvar'}, sparse_infill_speed:{v:['45'],reason:'TPU dolgu'} },
+  absasa:{ fan_min_speed:{v:['20'],reason:'ABS/ASA düşük fan'}, fan_max_speed:{v:['50'],reason:'ABS/ASA düşük fan'}, sparse_infill_pattern:{v:'gyroid',reason:'Warp gerilimini azalt'} }
+};
+
+function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
+
+const UI_TEXT = {
+  tr: {
+    leadIntro:'Bambu Studio proje dosyasını tarayıcıda açar, preset + micron + support profili seçimine göre process config dosyasını ve different_settings_to_system manifest’ini senkron günceller, fark tablosu çıkarır ve yeni .3mf üretir.',
+    leadBuild:'Güncel build: v3.4 — Texture Override eklendi; Yasin Spec fuzzy 0.22 / 0.30 korunur.',
+    languageTitle:'Dil / Language', systemTitle:'Preset sistemi', systemHint:'Yasin Aribuga Spec, Tendril_base_v4 içindeki 0.12 mm process + kritik support ayarlarını alır. Diğer profiller micron ve support seviyesine göre adapte olur.', supportLabTitle:'Support Lab', supportLabHint:'Support profili, ağaç desteğin modele ne kadar yakın duracağını belirler: kolay sökülme / iz azaltma için mesafe artar; daha temiz alt yüzey için mesafe azalır.', rimTitle:'Rim notu', rimHint:'Üst ağız temiz kalsın istiyorsan Bambu Studio’da modifier ile son 5–10 mm’de fuzzy kapat. Bu site geometri modifier’ı eklemez; process ayarını günceller.',
+    fileHeader:'01 / Dosya', waiting:'bekliyor', dropTitle:'.3mf bırak / seç', dropHint:'Dosya lokal açılır; sunucuya yüklenmez.', noFile:'Henüz dosya yok.', profileHeader:'02 / Profil', profileTitle:'Baskı amacı', micronTitle:'Layer height / micron', materialTitle:'Malzeme davranışı', supportModeTitle:'Support motoru', supportProfileTitle:'Support profili', textureTitle:'Texture / Fuzzy override', riskTitle:'Risk seviyesi',
+    machineTitle:'0.4 nozzle kontrolü', machineHint:'nozzle_diameter / printer_variant değerlerini 0.4’e çeker.', brimTitle:'Auto brim', brimHint:'Küçük temas alanı / warping riskinde.', ironTitle:'Top ironing', ironHint:'Sadece düz üst yüzey için. Fuzzy başlıkta önerilmez.', compatTitle:'Sadece uyumluluk onar', compatHint:'Bozuk enumları düzeltir, profil uygulamaz.',
+    runBtn:'Analiz et & optimize et', downloadBtn:'Optimize .3mf indir', reportBtn:'Rapor JSON indir', reportHeader:'03 / Değişiklikler', notReady:'hazır değil', statFilesLabel:'taranan entry', statFoundLabel:'bulunan ayar', statChangedLabel:'değişiklik', statWarnLabel:'uyarı', diffEmpty:'Henüz analiz yok.', postHeader:'04 / İndirme öncesi kontrol', logTitle:'Kontrol raporu', ready:'Hazır.', postEmpty:'Optimize sonrası kritik değerler burada görünür.', sliceNote:'Not: Bu dosyayı Bambu Studio’da açtıktan sonra mutlaka yeniden slice et. Mevcut plate/cache bilgileri eski slice’a ait olabilir; process değerleri değiştiği için nihai G-code’u Studio üretmeli.', footer:'by yasin aribuga · v3.4 texture override · bilingual support lab'
+  },
+  en: {
+    leadIntro:'Opens a Bambu Studio project locally in your browser, syncs process config and the different_settings_to_system manifest according to preset + micron + support profile, shows a diff table, and exports a new .3mf.',
+    leadBuild:'Current build: v3.4 — Texture Override added; Yasin Spec fuzzy 0.22 / 0.30 is preserved.',
+    languageTitle:'Language / Dil', systemTitle:'Preset system', systemHint:'Yasin Aribuga Spec captures the 0.12 mm process and critical support settings from Tendril_base_v4. Other profiles adapt by micron and support level.', supportLabTitle:'Support Lab', supportLabHint:'The support profile controls how close tree supports sit to the model: larger distance means easier removal and fewer marks; closer contact means cleaner undersides.', rimTitle:'Rim note', rimHint:'For a clean top rim, disable fuzzy on the last 5–10 mm with a Bambu Studio modifier. This site updates process settings; it does not add geometry modifiers.',
+    fileHeader:'01 / File', waiting:'waiting', dropTitle:'drop / choose .3mf', dropHint:'The file is opened locally; nothing is uploaded.', noFile:'No file yet.', profileHeader:'02 / Profile', profileTitle:'Print goal', micronTitle:'Layer height / micron', materialTitle:'Material behavior', supportModeTitle:'Support engine', supportProfileTitle:'Support profile', textureTitle:'Texture / Fuzzy override', riskTitle:'Risk level',
+    machineTitle:'0.4 nozzle check', machineHint:'Forces nozzle_diameter / printer_variant to 0.4.', brimTitle:'Auto brim', brimHint:'For small contact areas / warping risk.', ironTitle:'Top ironing', ironHint:'Only for flat top surfaces. Not recommended for fuzzy lamp shades.', compatTitle:'Compatibility repair only', compatHint:'Fixes invalid enums without applying a profile.',
+    runBtn:'Analyze & optimize', downloadBtn:'Download optimized .3mf', reportBtn:'Download JSON report', reportHeader:'03 / Changes', notReady:'not ready', statFilesLabel:'scanned entries', statFoundLabel:'settings found', statChangedLabel:'changes', statWarnLabel:'warnings', diffEmpty:'No analysis yet.', postHeader:'04 / Pre-download check', logTitle:'Control report', ready:'Ready.', postEmpty:'Critical values will appear here after optimization.', sliceNote:'Note: After opening this file in Bambu Studio, slice it again. Existing plate/cache data may belong to the old slice; Studio must generate the final G-code from the updated process values.', footer:'by yasin aribuga · v3.4 texture override · bilingual support lab'
+  }
+};
+const OPTION_TEXT = {
+  profileSelect: {
+    tr: {yasin_spec:'Yasin Aribuga Spec — Tendril Base v4 / 0.12 support', lamp_fuzzy:'Lamp Shade Fuzzy 0.88 — başlık / küre / 0.88 mm', sand_paint:'Sand & Paint Prep — zımpara + boya', fine:'Fine Balanced — genel kalite', visual:'Visual Polish — vitrin / temiz yüzey', strength:'Functional Strength — daha rijit', organic:'Organic / Thin Wall — heykel, lamba, ince form', support:'Support Master — temiz sökülen destek', fast:'Fast — kaliteyi bozmadan hız', mini:'Mini Detail — küçük parça / yazı / detay', vase:'Vase / Lamp Shell — tek duvar deneysel'},
+    en: {yasin_spec:'Yasin Aribuga Spec — Tendril Base v4 / 0.12 support', lamp_fuzzy:'Lamp Shade Fuzzy 0.88 — shade / sphere / 0.88 mm', sand_paint:'Sand & Paint Prep — sanding + paint', fine:'Fine Balanced — general quality', visual:'Visual Polish — display / clean surface', strength:'Functional Strength — stronger shell', organic:'Organic / Thin Wall — sculpture, lamp, thin form', support:'Support Master — clean removable support', fast:'Fast — speed without killing quality', mini:'Mini Detail — small part / text / detail', vase:'Vase / Lamp Shell — experimental single wall'}
+  },
+  materialSelect: {
+    tr: {pla:'PLA / PLA+', petg:'PETG', tpu:'TPU', absasa:'ABS / ASA', none:'Malzeme ayarına dokunma'},
+    en: {pla:'PLA / PLA+', petg:'PETG', tpu:'TPU', absasa:'ABS / ASA', none:'Do not touch material settings'}
+  },
+  supportMode: {
+    tr: {keep:'Mevcut support motorunu koru', off:'Support kapat', tree_slim:'Tree Slim aç — geçerli Bambu değeri', snug:'Normal / Snug support aç'},
+    en: {keep:'Keep existing support engine', off:'Disable support', tree_slim:'Enable Tree Slim — valid Bambu value', snug:'Enable Normal / Snug support'}
+  },
+  supportProfile: {
+    tr: {profile_default:'Profil varsayılanı / dokunma', easy_remove:'Easy Remove — kolay sökülür, az iz', balanced_tree:'Balanced Tree — kalite / sökme dengesi', clean_underside:'Close Contact — daha temiz alt yüzey', max_separation:'Max Separation — iz en az, alt yüzey daha riskli', yasin_support:'Yasin Support — Tendril_base_v4 support'},
+    en: {profile_default:'Profile default / do not touch', easy_remove:'Easy Remove — easier removal, fewer marks', balanced_tree:'Balanced Tree — quality / removal balance', clean_underside:'Close Contact — cleaner underside', max_separation:'Max Separation — fewest marks, riskier underside', yasin_support:'Yasin Support — Tendril_base_v4 support'}
+  },
+  textureOverride: {
+    tr: {profile_default:'Profil varsayılanı', keep_file:'Dosyadaki fuzzy ayarını koru', off:'Fuzzy kapat', subtle:'Subtle texture — hafif doku', balanced:'Balanced texture — dengeli doku', strong:'Strong texture — güçlü doku', yasin_spec:'Yasin Spec texture — 0.22 / 0.30', yasin_lite:'Yasin Lite texture — ince yüzey güvenli'},
+    en: {profile_default:'Profile default', keep_file:'Keep fuzzy settings from file', off:'Fuzzy off', subtle:'Subtle texture', balanced:'Balanced texture', strong:'Strong texture', yasin_spec:'Yasin Spec texture — 0.22 / 0.30', yasin_lite:'Yasin Lite texture — safe thin-shell version'}
+  },
+  riskSelect: {
+    tr: {safe:'Safe — az ve sağlam değişiklik', balanced:'Balanced — önerilen', aggressive:'Aggressive — daha deneysel'},
+    en: {safe:'Safe — conservative changes', balanced:'Balanced — recommended', aggressive:'Aggressive — more experimental'}
+  }
+};
+const SUPPORT_PROFILE_TEXT = {
+  tr: {
+    profile_default:{label:'Support: Profil varsayılanı', hint:'Seçili preset ne veriyorsa onu kullanır; support mesafesine ayrıca dokunmaz.'},
+    easy_remove:{label:'Support: Easy Remove', hint:'Top Z mesafesini micron’a göre artırır. Ağaç daha kolay çıkar, iz azalır; alt yüzey biraz daha gevşek kalabilir.'},
+    balanced_tree:{label:'Support: Balanced Tree', hint:'Top Z, interface ve branch değerlerini micron’a göre dengeler. Varsayılan güvenli seçenek.'},
+    clean_underside:{label:'Support: Close Contact', hint:'Top Z mesafesini layer’a yaklaştırır. Alt yüzey daha temiz olur; support daha zor çıkabilir ve iz riski artar.'},
+    max_separation:{label:'Support: Max Separation', hint:'Modelden en ayrı duran ağaç. İz en aza iner; ağır overhang altında sarkma riski artar.'},
+    yasin_support:{label:'Support: Yasin Support', hint:'Tendril_base_v4 support setini uygular: tree_hybrid, 55°, top Z 0.24, bottom Z 0.12, interface top 4.'}
+  },
+  en: {
+    profile_default:{label:'Support: Profile default', hint:'Uses whatever the selected preset provides; does not separately change support spacing.'},
+    easy_remove:{label:'Support: Easy Remove', hint:'Increases top Z by micron. Easier tree removal and fewer marks; underside quality can be looser.'},
+    balanced_tree:{label:'Support: Balanced Tree', hint:'Balances top Z, interface and branch settings by micron. Safe default option.'},
+    clean_underside:{label:'Support: Close Contact', hint:'Keeps top Z close to the layer height. Cleaner undersides; supports may be harder to remove and can mark more.'},
+    max_separation:{label:'Support: Max Separation', hint:'Keeps trees farthest from the model. Fewest marks; higher sag risk under heavy overhangs.'},
+    yasin_support:{label:'Support: Yasin Support', hint:'Applies the Tendril_base_v4 support setup: tree_hybrid, 55°, top Z 0.24, bottom Z 0.12, interface top 4.'}
+  }
+};
+const TEXTURE_PROFILE_TEXT = {
+  tr: {
+    profile_default:{label:'Texture: Profil varsayılanı', hint:'Seçili preset ne veriyorsa onu kullanır. Yasin Spec seçiliyse 0.22 / 0.30 korunur.'},
+    keep_file:{label:'Texture: Dosyadakini koru', hint:'Fuzzy ile ilgili hiçbir ayar yazmaz; .3mf içindeki mevcut değerleri aynen bırakır.'},
+    off:{label:'Texture: Fuzzy kapalı', hint:'Mevcut fuzzy ayarlarını override edip fuzzy skin’i kapatır.'},
+    subtle:{label:'Texture: Subtle', hint:'Micron’a göre hafif, rafine doku. Boyaya veya temiz objeye daha yakın.'},
+    balanced:{label:'Texture: Balanced', hint:'Micron’a göre dengeli doku. 120 micron’da 0.10 / 0.60.'},
+    strong:{label:'Texture: Strong', hint:'Micron’a göre güçlü doku. Organik, taş/kabuk hissi için.'},
+    yasin_spec:{label:'Texture: Yasin Spec', hint:'Tendril_base_v4’ten birebir: thickness 0.22, point distance 0.30. Micron seçimi bunu bozmaz.'},
+    yasin_lite:{label:'Texture: Yasin Lite', hint:'Yasin hissini daha güvenli ince yüzeye çeker. Lamba başlığı/rim riski için daha kontrollü.'}
+  },
+  en: {
+    profile_default:{label:'Texture: Profile default', hint:'Uses whatever the selected preset provides. With Yasin Spec, 0.22 / 0.30 stays intact.'},
+    keep_file:{label:'Texture: Keep file', hint:'Writes no fuzzy-related settings; preserves the existing .3mf values.'},
+    off:{label:'Texture: Fuzzy off', hint:'Overrides current fuzzy settings and disables fuzzy skin.'},
+    subtle:{label:'Texture: Subtle', hint:'A light micron-adaptive texture, closer to a clean printable object.'},
+    balanced:{label:'Texture: Balanced', hint:'Balanced micron-adaptive texture. At 120 micron: 0.10 / 0.60.'},
+    strong:{label:'Texture: Strong', hint:'A stronger micron-adaptive organic/stone-like texture.'},
+    yasin_spec:{label:'Texture: Yasin Spec', hint:'Captured exactly from Tendril_base_v4: thickness 0.22, point distance 0.30. Micron does not alter it.'},
+    yasin_lite:{label:'Texture: Yasin Lite', hint:'A safer thin-shell version of the Yasin texture for lamp shades and rim-sensitive parts.'}
+  }
+};
+function currentLang(){ return $('languageSelect') ? $('languageSelect').value : 'tr'; }
+function setText(id, value){ const el = $(id); if(el) el.textContent = value; }
+function setOptionTexts(selectId, lang){ const el = $(selectId); const group = OPTION_TEXT[selectId] && OPTION_TEXT[selectId][lang]; if(!el || !group) return; Array.from(el.options).forEach(o=>{ if(group[o.value]) o.textContent = group[o.value]; }); }
+function applyLanguage(){
+  const lang = currentLang(); const T = UI_TEXT[lang]; document.documentElement.lang = lang;
+  ['languageTitle','systemTitle','systemHint','supportLabTitle','supportLabHint','rimTitle','rimHint','fileHeader','dropTitle','dropHint','profileHeader','profileTitle','micronTitle','materialTitle','supportModeTitle','supportProfileTitle','textureTitle','riskTitle','machineTitle','machineHint','brimTitle','brimHint','ironTitle','ironHint','compatTitle','compatHint','runBtn','downloadBtn','reportBtn','reportHeader','statFilesLabel','statFoundLabel','statChangedLabel','statWarnLabel','diffEmpty','postHeader','logTitle','sliceNote'].forEach(id=>{ if(T[id]) setText(id,T[id]); });
+  const leadIntro = $('leadIntro'); if(leadIntro) leadIntro.innerHTML = T.leadIntro.replace('different_settings_to_system','<code>different_settings_to_system</code>');
+  const leadBuild = $('leadBuild'); if(leadBuild) leadBuild.innerHTML = lang === 'en' ? '<strong>Current build:</strong> v3.4 — Texture Override added; Yasin Spec fuzzy 0.22 / 0.30 is preserved.' : '<strong>Güncel build:</strong> v3.4 — Texture Override eklendi; Yasin Spec fuzzy 0.22 / 0.30 korunur.';
+  setText('siteFooter',T.footer);
+  if($('fileState') && $('fileState').textContent === UI_TEXT[lang === 'tr' ? 'en' : 'tr'].waiting) setText('fileState',T.waiting);
+  if($('fileMeta') && !$('fileMeta').querySelector('strong')) setText('fileMeta',T.noFile);
+  if($('postCheck') && !$('postCheck').querySelector('table')) setText('postCheck',T.postEmpty);
+  if($('log') && ($('log').textContent === 'Hazır.' || $('log').textContent === 'Ready.')) setText('log',T.ready);
+  ['profileSelect','materialSelect','supportMode','supportProfile','textureOverride','riskSelect'].forEach(id=>setOptionTexts(id,lang));
+  renderPresetSummary();
+}
+
+const MICRON_INFO = {
+  '80':  {label:'80 micron / 0.08 mm',  layer:'0.08', initial:'0.16', resolution:'0.008', supportZ:'0.16', slowTime:'13', slowMin:'15'},
+  '120': {label:'120 micron / 0.12 mm', layer:'0.12', initial:'0.20', resolution:'0.012', supportZ:'0.20', slowTime:'10', slowMin:'20'},
+  '160': {label:'160 micron / 0.16 mm', layer:'0.16', initial:'0.20', resolution:'0.016', supportZ:'0.24', slowTime:'9',  slowMin:'20'},
+  '200': {label:'200 micron / 0.20 mm', layer:'0.20', initial:'0.20', resolution:'0.020', supportZ:'0.20', slowTime:'8',  slowMin:'22'}
+};
+const MICRON_SPEEDS = {
+  lamp_fuzzy: {
+    '80':  {outer:['45'], inner:['55'], small:['18'], top:['55'], gap:['25'], internal:['65'], over:['50','40','30','22','16'], bridge:['18'], fuzzyT:'0.09', fuzzyD:'0.70'},
+    '120': {outer:['60'], inner:['60'], small:['25'], top:['70'], gap:['30'], internal:['80'], over:['60','50','35','25','20'], bridge:['20'], fuzzyT:'0.10', fuzzyD:'0.60'},
+    '160': {outer:['65'], inner:['70'], small:['25'], top:['80'], gap:['35'], internal:['90'], over:['65','55','40','28','20'], bridge:['22'], fuzzyT:'0.10', fuzzyD:'0.70'},
+    '200': {outer:['70'], inner:['75'], small:['25'], top:['90'], gap:['40'], internal:['100'], over:['60','50','35','25','18'], bridge:['24'], fuzzyT:'0.10', fuzzyD:'0.85'}
+  },
+  sand_paint: {
+    '80':  {outer:['32'], inner:['65'], small:['18'], top:['35'], gap:['28'], internal:['60'], sparse:['90'],  over:['42','34','26','20','15'], bridge:['18']},
+    '120': {outer:['40'], inner:['80'], small:['25'], top:['50'], gap:['35'], internal:['80'], sparse:['120'], over:['50','40','30','22','18'], bridge:['22']},
+    '160': {outer:['45'], inner:['90'], small:['25'], top:['55'], gap:['38'], internal:['90'], sparse:['135'], over:['55','45','34','25','18'], bridge:['24']},
+    '200': {outer:['50'], inner:['100'],small:['28'], top:['60'], gap:['40'], internal:['100'],sparse:['150'], over:['60','50','36','26','18'], bridge:['26']}
+  },
+  fine: {
+    '80':  {outer:['60'], inner:['90'],  top:['40'], small:['18'], sparse:['100'], over:['45','36','28','20','15']},
+    '120': {outer:['80'], inner:['120'], top:['50'], small:['25'], sparse:['140'], over:['60','50','35','25','20']},
+    '160': {outer:['90'], inner:['140'], top:['60'], small:['28'], sparse:['160'], over:['65','55','40','28','20']},
+    '200': {outer:['100'],inner:['160'], top:['70'], small:['30'], sparse:['180'], over:['70','60','42','30','22']}
+  },
+  visual: {
+    '80':  {outer:['35'], inner:['70'],  top:['30'], small:['16'], gap:['25'], over:['40','32','24','18','14']},
+    '120': {outer:['50'], inner:['90'],  top:['40'], small:['22'], gap:['40'], over:['50','40','30','22','18']},
+    '160': {outer:['60'], inner:['110'], top:['50'], small:['25'], gap:['45'], over:['58','46','34','25','18']},
+    '200': {outer:['70'], inner:['125'], top:['60'], small:['28'], gap:['50'], over:['62','50','36','26','20']}
+  },
+  strength: {
+    '80':  {outer:['45'], inner:['80'],  top:['40'], small:['18'], sparse:['90']},
+    '120': {outer:['60'], inner:['110'], top:['50'], small:['24'], sparse:['120']},
+    '160': {outer:['70'], inner:['120'], top:['60'], small:['28'], sparse:['140']},
+    '200': {outer:['80'], inner:['135'], top:['70'], small:['30'], sparse:['160']}
+  },
+  organic: {
+    '80':  {outer:['40'], inner:['55'],  top:['40'], small:['16'], sparse:['80'],  over:['45','35','26','20','15']},
+    '120': {outer:['55'], inner:['80'],  top:['50'], small:['22'], sparse:['100'], over:['55','45','34','24','18']},
+    '160': {outer:['65'], inner:['95'],  top:['60'], small:['25'], sparse:['115'], over:['60','50','36','26','20']},
+    '200': {outer:['70'], inner:['105'], top:['70'], small:['28'], sparse:['125'], over:['65','55','40','28','20']}
+  },
+  support: {
+    '80':  {outer:['45'], inner:['80'],  top:['40'], small:['18'], over:['42','34','26','20','15']},
+    '120': {outer:['60'], inner:['100'], top:['50'], small:['24'], over:['55','45','34','24','18']},
+    '160': {outer:['70'], inner:['120'], top:['60'], small:['28'], over:['60','50','36','26','20']},
+    '200': {outer:['80'], inner:['135'], top:['70'], small:['30'], over:['65','55','40','28','22']}
+  },
+  fast: {
+    '80':  {outer:['70'], inner:['120'], top:['55'], small:['20'], sparse:['140']},
+    '120': {outer:['90'], inner:['160'], top:['80'], small:['28'], sparse:['180']},
+    '160': {outer:['110'],inner:['180'], top:['90'], small:['30'], sparse:['200']},
+    '200': {outer:['120'],inner:['200'], top:['100'],small:['35'], sparse:['220']}
+  },
+  mini: {
+    '80':  {outer:['35'], inner:['55'], top:['35'], small:['16'], sparse:['70'], over:['38','30','22','16','12']},
+    '120': {outer:['40'], inner:['65'], top:['40'], small:['18'], sparse:['85'], over:['42','34','25','18','14']},
+    '160': {outer:['45'], inner:['75'], top:['45'], small:['20'], sparse:['95'], over:['48','38','28','20','15']},
+    '200': {outer:['50'], inner:['85'], top:['50'], small:['22'], sparse:['105'],over:['52','42','30','22','16']}
+  },
+  vase: {
+    '80':  {outer:['35'], inner:['35'], top:['35'], small:['16'], over:['40','32','24','18','14']},
+    '120': {outer:['40'], inner:['40'], top:['45'], small:['20'], over:['48','38','28','20','16']},
+    '160': {outer:['45'], inner:['45'], top:['55'], small:['24'], over:['55','44','32','24','18']},
+    '200': {outer:['50'], inner:['50'], top:['65'], small:['28'], over:['60','48','36','26','20']}
+  }
+};
+const FUZZY_KEYS = ['fuzzy_skin','fuzzy_skin_thickness','fuzzy_skin_point_distance','fuzzy_skin_first_layer','fuzzy_skin_mode','fuzzy_skin_noise_type'];
+const TEXTURE_VALUES = {
+  subtle: {
+    '80':  {thickness:'0.06', distance:'0.75'},
+    '120': {thickness:'0.08', distance:'0.80'},
+    '160': {thickness:'0.08', distance:'0.90'},
+    '200': {thickness:'0.10', distance:'1.00'}
+  },
+  balanced: {
+    '80':  {thickness:'0.08', distance:'0.65'},
+    '120': {thickness:'0.10', distance:'0.60'},
+    '160': {thickness:'0.10', distance:'0.70'},
+    '200': {thickness:'0.12', distance:'0.85'}
+  },
+  strong: {
+    '80':  {thickness:'0.12', distance:'0.50'},
+    '120': {thickness:'0.14', distance:'0.45'},
+    '160': {thickness:'0.16', distance:'0.55'},
+    '200': {thickness:'0.18', distance:'0.65'}
+  },
+  yasin_lite: {
+    '80':  {thickness:'0.09', distance:'0.70'},
+    '120': {thickness:'0.10', distance:'0.60'},
+    '160': {thickness:'0.11', distance:'0.70'},
+    '200': {thickness:'0.12', distance:'0.85'}
+  }
+};
+function num(x){ return Number.parseFloat(x); }
+function cleanNum(x){ return String(Number(x.toFixed(3))).replace(/\.0$/,''); }
+function setRule(rules,key,v,reason){ rules[key] = {v, reason}; }
+function shellCount(targetThickness, layerHeight, min=1){ return String(Math.max(min, Math.round(targetThickness / layerHeight))); }
+function setSpeedRules(rules, s, reasonPrefix){
+  if(!s) return;
+  if(s.outer) setRule(rules,'outer_wall_speed',s.outer,`${reasonPrefix}: dış duvar hızı`);
+  if(s.inner) setRule(rules,'inner_wall_speed',s.inner,`${reasonPrefix}: iç duvar hızı`);
+  if(s.small) setRule(rules,'small_perimeter_speed',s.small,`${reasonPrefix}: küçük perimeter kontrolü`);
+  if(s.top) setRule(rules,'top_surface_speed',s.top,`${reasonPrefix}: top surface hızı`);
+  if(s.internal) setRule(rules,'internal_solid_infill_speed',s.internal,`${reasonPrefix}: solid infill hızı`);
+  if(s.sparse) setRule(rules,'sparse_infill_speed',s.sparse,`${reasonPrefix}: sparse infill hızı`);
+  if(s.gap) setRule(rules,'gap_infill_speed',s.gap,`${reasonPrefix}: gap infill hızı`);
+  if(s.bridge) setRule(rules,'bridge_speed',s.bridge,`${reasonPrefix}: bridge hızı`);
+  if(s.over){
+    setRule(rules,'enable_overhang_speed',['1'],`${reasonPrefix}: overhang hızları aktif`);
+    setRule(rules,'detect_overhang_wall','1',`${reasonPrefix}: overhang duvar algılama`);
+    setRule(rules,'overhang_1_4_speed',[s.over[0]],`${reasonPrefix}: hafif overhang`);
+    setRule(rules,'overhang_2_4_speed',[s.over[1]],`${reasonPrefix}: orta overhang`);
+    setRule(rules,'overhang_3_4_speed',[s.over[2]],`${reasonPrefix}: riskli overhang`);
+    setRule(rules,'overhang_4_4_speed',[s.over[3]],`${reasonPrefix}: ağır overhang`);
+    setRule(rules,'overhang_totally_speed',[s.over[4]],`${reasonPrefix}: tamamen desteksiz çizgi`);
+  }
+}
+function applyMicronRules(rules, profileKey, micronKey){
+  const m = MICRON_INFO[micronKey] || MICRON_INFO['120'];
+  const lh = num(m.layer);
+  const reasonPrefix = `${m.label} adaptasyonu`;
+  if(profileKey === 'yasin_spec'){
+    if(micronKey === '120'){
+      setRule(rules,'layer_height','0.12','Yasin Aribuga Spec: Tendril_base_v4 orijinal 120 micron layer');
+      setRule(rules,'initial_layer_print_height','0.2','Yasin Aribuga Spec: orijinal ilk katman');
+      setRule(rules,'resolution','0.012','Yasin Aribuga Spec: orijinal kontur çözünürlüğü');
+    } else {
+      setRule(rules,'layer_height',m.layer,`${reasonPrefix}: Yasin Spec geometrisi korunur, sadece layer height adapte edilir`);
+      setRule(rules,'initial_layer_print_height',m.initial,`${reasonPrefix}: ilk katman adapte edilir`);
+      setRule(rules,'resolution',m.resolution,`${reasonPrefix}: kontur çözünürlüğü adapte edilir`);
+    }
+    // Support ayarları bu spec için kritik olduğu için micron adaptasyonu support Z, support style ve interface değerlerine dokunmaz.
+    return;
+  }
+  setRule(rules,'layer_height',m.layer,`${reasonPrefix}: ana katman yüksekliği`);
+  setRule(rules,'initial_layer_print_height',m.initial,`${reasonPrefix}: ilk katman güvenliği`);
+  setRule(rules,'resolution',m.resolution,`${reasonPrefix}: kontur çözünürlüğü`);
+  setRule(rules,'support_top_z_distance',m.supportZ,`${reasonPrefix}: support Z mesafesi`);
+  setRule(rules,'support_bottom_z_distance',m.supportZ,`${reasonPrefix}: support alt Z mesafesi`);
+  setRule(rules,'slow_down_layer_time',m.slowTime,`${reasonPrefix}: minimum layer time`);
+  setRule(rules,'slow_down_min_speed',[m.slowMin],`${reasonPrefix}: minimum slow-down hızı`);
+
+  const s = (MICRON_SPEEDS[profileKey] && MICRON_SPEEDS[profileKey][micronKey]) || (MICRON_SPEEDS.fine && MICRON_SPEEDS.fine[micronKey]);
+  setSpeedRules(rules, s, reasonPrefix);
+
+  if(profileKey === 'lamp_fuzzy'){
+    setRule(rules,'top_shell_layers','0',`${reasonPrefix}: üst açık başlık top cap kapatmasın`);
+    setRule(rules,'top_shell_thickness','0',`${reasonPrefix}: üst açık form`);
+    setRule(rules,'bottom_shell_layers','1',`${reasonPrefix}: minimal alt shell`);
+    setRule(rules,'bottom_shell_thickness',m.layer,`${reasonPrefix}: 1 katman alt shell`);
+    setRule(rules,'fuzzy_skin_thickness',s.fuzzyT || '0.10',`${reasonPrefix}: fuzzy yoğunluğu`);
+    setRule(rules,'fuzzy_skin_point_distance',s.fuzzyD || '0.60',`${reasonPrefix}: fuzzy nokta mesafesi`);
+  } else if(profileKey === 'sand_paint'){
+    const topLayers = shellCount(0.60, lh, 3);
+    const bottomLayers = shellCount(0.48, lh, 2);
+    setRule(rules,'top_shell_layers',topLayers,`${reasonPrefix}: yaklaşık 0.60 mm top shell`);
+    setRule(rules,'bottom_shell_layers',bottomLayers,`${reasonPrefix}: yaklaşık 0.48 mm bottom shell`);
+    setRule(rules,'top_shell_thickness',cleanNum(num(topLayers)*lh),`${reasonPrefix}: top shell kalınlığı`);
+    setRule(rules,'bottom_shell_thickness',cleanNum(num(bottomLayers)*lh),`${reasonPrefix}: bottom shell kalınlığı`);
+    setRule(rules,'fuzzy_skin','none',`${reasonPrefix}: boya/zımpara için fuzzy kapalı`);
+  } else if(profileKey === 'vase'){
+    setRule(rules,'top_shell_layers','0',`${reasonPrefix}: vase/lamba shell üst açık`);
+    setRule(rules,'top_shell_thickness','0',`${reasonPrefix}: vase/lamba shell üst açık`);
+    setRule(rules,'bottom_shell_layers','1',`${reasonPrefix}: vase alt tek katman`);
+    setRule(rules,'bottom_shell_thickness',m.layer,`${reasonPrefix}: vase alt shell`);
+  } else {
+    const target = profileKey === 'strength' ? 0.80 : (profileKey === 'fast' ? 0.56 : 0.60);
+    const topLayers = shellCount(target, lh, profileKey === 'fast' ? 2 : 3);
+    const bottomLayers = shellCount(target, lh, profileKey === 'fast' ? 2 : 3);
+    setRule(rules,'top_shell_layers',topLayers,`${reasonPrefix}: yaklaşık ${cleanNum(target)} mm top shell`);
+    setRule(rules,'bottom_shell_layers',bottomLayers,`${reasonPrefix}: yaklaşık ${cleanNum(target)} mm bottom shell`);
+    setRule(rules,'top_shell_thickness',cleanNum(num(topLayers)*lh),`${reasonPrefix}: top shell kalınlığı`);
+    setRule(rules,'bottom_shell_thickness',cleanNum(num(bottomLayers)*lh),`${reasonPrefix}: bottom shell kalınlığı`);
+  }
+}
+function removeFuzzyRules(rules){ FUZZY_KEYS.forEach(k=>{ if(Object.prototype.hasOwnProperty.call(rules,k)) delete rules[k]; }); }
+function applyTextureOverrideRules(rules, textureKey, micronKey){
+  const label = (MICRON_INFO[micronKey] || MICRON_INFO['120']).label;
+  if(textureKey === 'profile_default') return;
+  removeFuzzyRules(rules);
+  if(textureKey === 'keep_file') return;
+  if(textureKey === 'off'){
+    setRule(rules,'fuzzy_skin','none','Texture Override: fuzzy kapalı');
+    setRule(rules,'fuzzy_skin_thickness','0','Texture Override: fuzzy thickness sıfırlandı');
+    setRule(rules,'fuzzy_skin_point_distance','0.8','Texture Override: güvenli placeholder distance');
+    return;
+  }
+  let thickness, distance, reasonName;
+  if(textureKey === 'yasin_spec'){
+    thickness = '0.22'; distance = '0.30'; reasonName = 'Yasin Spec texture: Tendril_base_v4 birebir değer, micron adaptasyonu uygulanmaz';
+  } else {
+    const values = (TEXTURE_VALUES[textureKey] && (TEXTURE_VALUES[textureKey][micronKey] || TEXTURE_VALUES[textureKey]['120'])) || TEXTURE_VALUES.balanced['120'];
+    thickness = values.thickness; distance = values.distance; reasonName = `${label} Texture Override: ${textureKey}`;
+  }
+  setRule(rules,'fuzzy_skin','external',`${reasonName}: sadece dış yüzey fuzzy`);
+  setRule(rules,'fuzzy_skin_thickness',thickness,`${reasonName}: fuzzy thickness`);
+  setRule(rules,'fuzzy_skin_point_distance',distance,`${reasonName}: fuzzy point distance`);
+  setRule(rules,'fuzzy_skin_first_layer','0',`${reasonName}: ilk katmanda fuzzy kapalı`);
+  setRule(rules,'fuzzy_skin_mode','displacement',`${reasonName}: displacement fuzzy modu`);
+  setRule(rules,'fuzzy_skin_noise_type','classic',`${reasonName}: classic noise`);
+}
+function buildRules(){
+  let rules = {};
+  if(!$('compatOnly').checked){
+    const pk = $('profileSelect').value;
+    Object.assign(rules, clone(PRESET_INFO[pk].rules));
+    if(pk !== 'yasin_spec' && $('materialSelect').value !== 'none') Object.assign(rules, clone(MATERIAL_RULES[$('materialSelect').value] || {}));
+    if($('applyMachine').checked) Object.assign(rules, clone(MACHINE_RULES));
+    const supportMode = $('supportMode').value;
+    if(supportMode !== 'keep') Object.assign(rules, clone(SUPPORT_MODE_RULES[supportMode]));
+    if($('enableBrim').checked) Object.assign(rules, clone(BRIM_RULES));
+    if($('enableIroning').checked) Object.assign(rules, clone(IRON_RULES));
+    applyMicronRules(rules, pk, $('micronSelect').value);
+    Object.assign(rules, supportProfileRules($('supportProfile').value, $('micronSelect').value, $('supportMode').value));
+    applyTextureOverrideRules(rules, $('textureOverride').value, $('micronSelect').value);
+    if($('riskSelect').value === 'safe') delete rules.fan_min_speed;
+    if($('riskSelect').value === 'aggressive' && $('profileSelect').value === 'lamp_fuzzy') {
+      rules.outer_wall_speed = {v:['45'], reason:'Aggressive kalite: daha yavaş dış duvar'};
+      if($('textureOverride').value === 'profile_default') rules.fuzzy_skin_thickness = {v:'0.12', reason:'Aggressive fuzzy: daha belirgin doku'};
+    }
+  }
+  return rules;
+}
+function profileInfo(){ return PRESET_INFO[$('profileSelect').value]; }
+function renderPresetSummary(){
+  const lang = currentLang();
+  const info = profileInfo();
+  const micron = MICRON_INFO[$('micronSelect').value] || MICRON_INFO['120'];
+  const sp = SUPPORT_PROFILE_TEXT[lang][$('supportProfile').value] || SUPPORT_PROFILE_TEXT[lang].profile_default;
+  const tx = TEXTURE_PROFILE_TEXT[lang][$('textureOverride').value] || TEXTURE_PROFILE_TEXT[lang].profile_default;
+  let extra = '';
+  if($('profileSelect').value === 'lamp_fuzzy') extra = lang === 'en' ? '<br><br><strong>Important:</strong> For a clean rim, keep fuzzy off globally and enable fuzzy only on the body with a Bambu Studio modifier. Leave the top 5–10 mm rim clean.' : '<br><br><strong>Önemli:</strong> Rim/üst ağız temizliği için global fuzzy yerine Bambu Studio modifier kullan: gövdeye fuzzy açık, üst 5–10 mm rim fuzzy kapalı.';
+  if($('profileSelect').value === 'yasin_spec') extra = lang === 'en' ? '<br><br><strong>Important:</strong> This spec was captured at 120 micron / 0.12 mm. Leave Support Engine as Keep and Support Profile as Profile default to preserve the original support behavior.' : '<br><br><strong>Önemli:</strong> Bu spec 120 micron / 0.12 mm için kaydedildi. Support ayarlarını aynen almak için Support motoru Keep ve Support profili Profil varsayılanı bırak.';
+  const micronText = $('profileSelect').value === 'yasin_spec'
+    ? (lang === 'en' ? ' At 120 micron this preset is exact; other micron values only adapt layer/initial/resolution unless you choose a support profile.' : ' Bu preset 120 micron’da exact çalışır; başka micron seçersen sadece layer/initial/resolution adapte olur, support profil seçersen destek davranışı ayrıca değişir.')
+    : (lang === 'en' ? ' Layer height, shell thickness, overhang, small perimeter, minimum layer time and support spacing adapt to this choice.' : ' Layer height, shell kalınlığı, overhang, small perimeter, minimum layer time ve support mesafeleri bu seçime göre güncellenir.');
+  $('presetSummary').innerHTML = `<strong>${escapeHtml(info.title)}</strong><br><span class="hint">${escapeHtml(info.note)}</span><br><br><span class="pill">${escapeHtml(micron.label)}</span><span class="hint">${micronText}</span><br><br><span class="pill">${escapeHtml(sp.label)}</span><span class="hint"> ${escapeHtml(sp.hint)}</span><br><br><span class="pill">${escapeHtml(tx.label)}</span><span class="hint"> ${escapeHtml(tx.hint)}</span>${extra}`;
+}
+function logLine(msg){ $('log').textContent += `\n${msg}`; }
+function setStats(a,b,c,d){ $('statFiles').textContent=a; $('statFound').textContent=b; $('statChanged').textContent=c; $('statWarn').textContent=d; }
+function fmt(v){ return typeof v === 'string' ? v : JSON.stringify(v); }
+function same(a,b){ return JSON.stringify(a) === JSON.stringify(b); }
+function isNumericLike(x){ return typeof x === 'string' && x.trim() !== '' && !isNaN(Number(x)); }
+function adaptValue(oldVal, newVal){
+  const val = Array.isArray(newVal) ? newVal.map(String) : String(newVal);
+  if(Array.isArray(oldVal)){
+    if(Array.isArray(val)) return val.length === oldVal.length ? val : oldVal.map((_,i)=>val[Math.min(i,val.length-1)]);
+    return oldVal.map(()=>String(val));
+  }
+  if(typeof oldVal === 'number') return isNumericLike(val) ? Number(val) : val;
+  if(typeof oldVal === 'boolean') return val === '1' || val === 'true' || val === true;
+  return Array.isArray(newVal) ? String(newVal[0]) : String(newVal);
+}
+function record(changes,type,setting,file,oldVal,nextVal,reason,path){ changes.push({type,setting,file,old:oldVal,next:nextVal,reason,path}); }
+function compatFixObject(obj,file,changes,found,path=[]){
+  if(!obj || typeof obj !== 'object') return;
+  for(const key of Object.keys(obj)){
+    const val = obj[key];
+    if(key === 'support_style' && val === 'slim'){
+      found.add(file+':support_style'); record(changes,'compat','support_style',file,val,'tree_slim','Bambu Studio slim değerini kabul etmiyor; doğru enum tree_slim.',path.concat(key).join('.')); obj[key]='tree_slim';
+    }
+    if(val && typeof val === 'object') compatFixObject(val,file,changes,found,path.concat(key));
+  }
+}
+function traverse(obj,rules,file,changes,found,path=[]){
+  if(!obj || typeof obj !== 'object') return;
+  for(const key of Object.keys(obj)){
+    const val = obj[key];
+    if(rules[key]){
+      found.add(file+':'+key);
+      const next = adaptValue(val, rules[key].v);
+      if(!same(val,next)){ record(changes,'profile',key,file,val,next,rules[key].reason,path.concat(key).join('.')); obj[key]=next; }
+    }
+    if(val && typeof val === 'object') traverse(val,rules,file,changes,found,path.concat(key));
+  }
+}
+function addMissingProjectSettings(json,rules,file,changes,found){
+  if(!json || typeof json !== 'object' || Array.isArray(json)) return;
+  for(const [key,rule] of Object.entries(rules)){
+    if(!(key in json)){
+      const next = Array.isArray(rule.v) ? rule.v.map(String) : (isNumericLike(rule.v) ? Number(rule.v) : String(rule.v));
+      json[key] = next;
+      found.add(file+':'+key);
+      record(changes,'add',key,file,'∅',next,rule.reason,'root-add');
+    }
+  }
+}
+function syncDifferentSettings(json,rules,file,changes){
+  if(!json || typeof json !== 'object' || Array.isArray(json)) return;
+  const keys = Object.keys(rules);
+  if(!keys.length) return;
+  const machineKeys = new Set(['nozzle_diameter','printer_variant','min_layer_height','max_layer_height']);
+  let old = json.different_settings_to_system;
+  let arr = Array.isArray(old) ? old.slice(0,3) : ['', '', ''];
+  while(arr.length < 3) arr.push('');
+  const sets = arr.map(s => new Set(String(s || '').split(';').filter(Boolean)));
+  keys.forEach(k => sets[machineKeys.has(k) ? 2 : 0].add(k));
+  const next = sets.map(s => Array.from(s).sort().join(';'));
+  if(!same(old,next)){
+    json.different_settings_to_system = next;
+    record(changes,'manifest','different_settings_to_system',file,old || '∅',next,'Bambu Studio’nun proje override olarak okuması için manifest senkronu','root');
+  }
+}
+function patchLooseCompatibility(text,file,changes,found){
+  let out = text;
+  const patterns = [
+    [/(\"support_style\"\s*:\s*)\"slim\"/g, '$1"tree_slim"', 'json'],
+    [/(&quot;support_style&quot;\s*:\s*)&quot;slim&quot;/g, '$1&quot;tree_slim&quot;', 'html-json'],
+    [/(key=["']support_style["'][^>]*value=["'])slim(["'])/g, '$1tree_slim$2', 'xml'],
+    [/(^|[\n;])(support_style\s*=\s*)slim(?=\s*(?:[\n;]|$))/g, '$1$2tree_slim', 'kv']
+  ];
+  for(const [re,rep,kind] of patterns){
+    out = out.replace(re,(m)=>{ found.add(file+':support_style'); record(changes,'compat','support_style',file,'slim','tree_slim','Bambu Studio uyumluluk onarımı',kind); return m.replace(re,rep); });
+  }
+  return out;
+}
+function replaceLooseText(text,rules,file,changes,found){
+  let out = patchLooseCompatibility(text,file,changes,found);
+  for(const [key,rule] of Object.entries(rules)){
+    const newScalar = Array.isArray(rule.v) ? String(rule.v[0]) : String(rule.v);
+    const jsonRe = new RegExp(`("${key}"\\s*:\\s*)("[^"]*"|\\[[^\\]]*\\]|-?\\d+(?:\\.\\d+)?|true|false)`, 'g');
+    out = out.replace(jsonRe,(m,p1,oldRaw)=>{
+      found.add(file+':'+key);
+      let newRaw;
+      if(oldRaw.trim().startsWith('[')){
+        try{ const arr = JSON.parse(oldRaw); newRaw = JSON.stringify(adaptValue(arr,rule.v)); } catch(e){ newRaw = JSON.stringify([newScalar]); }
+      } else if(/^[-\d]/.test(oldRaw.trim())) newRaw = isNumericLike(newScalar) ? String(Number(newScalar)) : JSON.stringify(newScalar);
+      else if(/^(true|false)$/.test(oldRaw.trim())) newRaw = (newScalar === '1' || newScalar === 'true') ? 'true' : 'false';
+      else newRaw = JSON.stringify(newScalar);
+      if(oldRaw === newRaw) return m;
+      record(changes,'profile',key,file,oldRaw,newRaw,rule.reason,'loose-json');
+      return p1 + newRaw;
+    });
+    const xmlRe = new RegExp(`(key=["']${key}["'][^>]*value=["'])([^"']+)(["'])`,'g');
+    out = out.replace(xmlRe,(m,p1,oldRaw,p3)=>{ found.add(file+':'+key); if(oldRaw === newScalar) return m; record(changes,'profile',key,file,oldRaw,newScalar,rule.reason,'xml'); return p1+newScalar+p3; });
+  }
+  return out;
+}
+function isTextCandidate(name,entry){ if(entry.dir) return false; const n = name.toLowerCase(); if(TEXT_EXT_RE.test(n)) return true; if(n.includes('setting') || n.includes('profile') || n.includes('metadata')) return true; return false; }
+async function readText(entry){ return await entry.async('string'); }
+function renderChanges(changes){
+  const body = $('diffBody'); body.innerHTML = '';
+  for(const c of changes){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><span class="pill">${escapeHtml(c.type)}</span></td><td><span class="pill">${escapeHtml(c.setting)}</span></td><td class="mono">${escapeHtml(c.file)}</td><td class="mono">${escapeHtml(fmt(c.old))}</td><td class="mono"><strong>${escapeHtml(fmt(c.next))}</strong></td><td>${escapeHtml(c.reason)}</td>`;
+    body.appendChild(tr);
+  }
+  $('diffEmpty').style.display = changes.length ? 'none' : 'block';
+  $('diffWrap').style.display = changes.length ? 'block' : 'none';
+}
+function escapeHtml(str){ return String(str).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch])); }
+function invalidate(){
+  if(!state.file) return;
+  state.optimizedBlob = null; state.report = null; state.dirty = true;
+  $('downloadBtn').disabled = true; $('reportBtn').disabled = true;
+  $('summaryState').textContent = 'ayar değişti'; $('summaryState').className = 'pill warn';
+  $('verifyState').textContent = 'tekrar optimize et'; $('verifyState').className = 'pill warn';
+}
+function setPostCheck(items,bad){
+  const wrap = $('postCheck');
+  if(!items.length){ wrap.className='empty'; wrap.textContent='Kontrol edilecek değer bulunamadı.'; return; }
+  wrap.className='';
+  wrap.innerHTML = '<div class="tablewrap" style="max-height:260px"><table><thead><tr><th>Dosya</th><th>Ayar</th><th>Değer</th></tr></thead><tbody>' + items.map(x=>`<tr><td class="mono">${escapeHtml(x.file)}</td><td><span class="pill">${escapeHtml(x.key)}</span></td><td class="mono"><strong>${escapeHtml(fmt(x.value))}</strong></td></tr>`).join('') + '</tbody></table></div>';
+  $('verifyState').textContent = bad ? 'uyarı' : 'temiz'; $('verifyState').className = bad ? 'pill bad' : 'pill ok';
+}
+function hasInvalidSupportStyleInText(text){ return /["']support_style["']\s*:\s*["']slim["']/.test(text) || /key=["']support_style["'][^>]*value=["']slim["']/.test(text) || /(^|[\n;])support_style\s*=\s*slim(?=\s*(?:[\n;]|$))/.test(text) || /&quot;support_style&quot;\s*:\s*&quot;slim&quot;/.test(text); }
+async function verifyBlob(blob){
+  const z = await JSZip.loadAsync(blob); const checks = []; let bad = false;
+  const keysToShow = ['layer_height','initial_layer_print_height','line_width','outer_wall_line_width','inner_wall_line_width','wall_loops','sparse_infill_density','sparse_infill_pattern','top_shell_layers','bottom_shell_layers','seam_position','fuzzy_skin','fuzzy_skin_thickness','fuzzy_skin_point_distance','outer_wall_speed','inner_wall_speed','small_perimeter_speed','top_surface_speed','enable_overhang_speed','overhang_1_4_speed','overhang_2_4_speed','overhang_3_4_speed','overhang_4_4_speed','overhang_totally_speed','enable_support','support_type','support_style','support_threshold_angle','support_on_build_plate_only','support_top_z_distance','support_bottom_z_distance','support_interface_top_layers','support_interface_bottom_layers','support_interface_pattern','support_interface_spacing','support_object_xy_distance','tree_support_branch_angle','tree_support_branch_diameter','tree_support_branch_distance','tree_support_wall_count','different_settings_to_system'];
+  for(const name of Object.keys(z.files)){
+    const entry = z.files[name]; if(!isTextCandidate(name,entry)) continue; let text=''; try{text=await readText(entry);}catch(e){continue;} if(text.length > 2000000) continue; if(hasInvalidSupportStyleInText(text)) bad = true;
+    if(name === 'Metadata/project_settings.config'){
+      try{ const js = JSON.parse(text); keysToShow.forEach(k=>{ if(k in js) checks.push({file:name,key:k,value:js[k]}); }); }catch(e){}
+    }
+  }
+  return {checks,bad};
+}
+async function processFile(){
+  if(!state.file) return;
+  $('runBtn').disabled = true; $('downloadBtn').disabled = true; $('reportBtn').disabled = true;
+  $('log').textContent = 'Dosya açılıyor…'; setStats(0,0,0,0); renderChanges([]); setPostCheck([],false);
+  $('summaryState').textContent = 'çalışıyor'; $('summaryState').className = 'pill warn';
+  try{
+    const rules = buildRules(); const zip = await JSZip.loadAsync(state.file); const changes = [], warnings = [], found = new Set();
+    const candidates = Object.keys(zip.files).filter(n=>isTextCandidate(n,zip.files[n]));
+    logLine(`${candidates.length} text/config entry taranacak.`);
+    for(const name of candidates){
+      let text; try{text = await readText(zip.files[name]);}catch(e){ warnings.push(`${name} okunamadı: ${e.message}`); continue; }
+      if(text.length > 2000000){ warnings.push(`${name} çok büyük olduğu için atlandı.`); continue; }
+      let nextText = text, changed = false; const trimmed = text.trim();
+      if(trimmed.startsWith('{') || trimmed.startsWith('[')){
+        try{
+          const json = JSON.parse(trimmed); const before = changes.length;
+          compatFixObject(json,name,changes,found);
+          traverse(json,rules,name,changes,found);
+          if(name === 'Metadata/project_settings.config'){
+            addMissingProjectSettings(json,rules,name,changes,found);
+            syncDifferentSettings(json,rules,name,changes);
+            json.process_notes = `Optimized by 3MF+Optimizer v3.4 — ${profileInfo().title} — ${MICRON_INFO[$('micronSelect').value].label} — ${new Date().toISOString()}`;
+          }
+          if(name.endsWith('plate_1.json') && !$('compatOnly').checked){
+            if(json.nozzle_diameter !== undefined && $('applyMachine').checked && json.nozzle_diameter !== 0.4){ record(changes,'metadata','nozzle_diameter',name,json.nozzle_diameter,0.4,'Plate metadata nozzle göstergesi','plate'); json.nozzle_diameter = 0.4; }
+            if(Array.isArray(json.bbox_objects)){ json.bbox_objects.forEach((o,i)=>{ if(o && o.layer_height !== undefined && String(o.layer_height) !== String(rules.layer_height?.v || o.layer_height)){ record(changes,'metadata','bbox_objects.layer_height',name,o.layer_height,rules.layer_height.v,'Plate metadata layer göstergesi',`bbox_objects.${i}`); o.layer_height = Number(rules.layer_height.v); } }); }
+          }
+          if(changes.length > before || name === 'Metadata/project_settings.config'){ nextText = JSON.stringify(json,null,2); changed = nextText !== text; }
+        }catch(e){ nextText = replaceLooseText(text,rules,name,changes,found); changed = nextText !== text; if(!changed) warnings.push(`${name} JSON gibi göründü ama parse edilemedi.`); }
+      } else { nextText = replaceLooseText(text,rules,name,changes,found); changed = nextText !== text; }
+      if(changed){ zip.file(name,nextText); logLine(`✓ ${name} güncellendi.`); }
+    }
+    const blob = await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}});
+    const verification = await verifyBlob(blob); setPostCheck(verification.checks, verification.bad);
+    if(verification.bad) warnings.push('Download kilitlendi: paket içinde hâlâ support_style: slim var.');
+    if(!changes.length) warnings.push('Değiştirilecek ayar bulunamadı ya da dosya zaten seçili profile çok yakın.');
+    state.optimizedBlob = verification.bad ? null : blob;
+    state.report = {source:state.originalName,generatedAt:new Date().toISOString(),version:'3.2',profile:$('profileSelect').value,profileTitle:profileInfo().title,micron:$('micronSelect').value,micronLabel:MICRON_INFO[$('micronSelect').value].label,material:$('materialSelect').value,language:$('languageSelect').value,supportMode:$('supportMode').value,supportProfile:$('supportProfile').value,risk:$('riskSelect').value,rulesApplied:Object.keys(rules),changedCount:changes.length,foundCount:found.size,warnings,changes,verification};
+    renderChanges(changes); setStats(candidates.length,found.size,changes.length,warnings.length);
+    warnings.forEach(w=>logLine('⚠ '+w));
+    logLine(verification.bad ? 'Durduruldu: bozuk support_style kaldı.' : '✓ Paket doğrulandı: support_style slim kalmadı.');
+    logLine(`Bitti. ${changes.length} değişiklik.`);
+    $('summaryState').textContent = changes.length ? 'hazır' : 'değişiklik yok'; $('summaryState').className = changes.length ? 'pill ok' : 'pill warn';
+    $('downloadBtn').disabled = verification.bad; $('reportBtn').disabled = false; state.dirty = false;
+  } catch(e){ $('log').textContent += '\nHata: ' + e.message; $('summaryState').textContent='hata'; $('summaryState').className='pill bad'; }
+  finally{ $('runBtn').disabled = false; }
+}
+function downloadBlob(blob,name){ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},1000); }
+function outName(suffix){ const base=(state.originalName || 'project.3mf').replace(/\.(3mf|zip)$/i,''); return `${base}${suffix}`; }
+function acceptFile(file){ state.file=file; state.originalName=file.name; state.optimizedBlob=null; state.report=null; state.dirty=false; $('fileState').textContent='yüklendi'; $('fileState').className='pill ok'; $('fileMeta').innerHTML=`<strong>${escapeHtml(file.name)}</strong><br><span style="color:var(--muted);font-size:12px">${(file.size/1024/1024).toFixed(2)} MB</span>`; $('runBtn').disabled=false; $('downloadBtn').disabled=true; $('reportBtn').disabled=true; $('summaryState').textContent='hazır değil'; $('summaryState').className='pill'; $('log').textContent='Dosya seçildi. Analiz/optimize butonuna bas.'; }
+$('runBtn').addEventListener('click', processFile);
+$('downloadBtn').addEventListener('click', ()=> state.optimizedBlob && downloadBlob(state.optimizedBlob, outName(`_optimized_v3.4_${$('micronSelect').value}micron.3mf`)));
+$('reportBtn').addEventListener('click', ()=> state.report && downloadBlob(new Blob([JSON.stringify(state.report,null,2)],{type:'application/json'}), outName(`_optimization_report_v3.4_${$('micronSelect').value}micron.json`)));
+$('fileInput').addEventListener('change', e=>{ if(e.target.files[0]) acceptFile(e.target.files[0]); });
+const drop = $('drop');
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault(); drop.classList.add('drag');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault(); drop.classList.remove('drag');}));
+drop.addEventListener('drop', e=>{ const file=e.dataTransfer.files[0]; if(file) acceptFile(file); });
+['profileSelect','micronSelect','materialSelect','supportMode','supportProfile','textureOverride','riskSelect','applyMachine','enableBrim','enableIroning','compatOnly'].forEach(id=>$(id).addEventListener('change',()=>{ renderPresetSummary(); invalidate(); }));
+$('languageSelect').addEventListener('change',()=>{ applyLanguage(); invalidate(); });
+applyLanguage();
+</script>
+</body>
+</html>
