@@ -1,28 +1,69 @@
 # 3MF+Optimizer
 
-A local, single-file web tool for optimizing Bambu Studio `.3mf` project settings.
+Local-only Bambu Studio `.3mf` optimizer for 0.4 mm nozzle workflows.
 
-Built for 0.4 mm nozzle workflows with micron-adaptive presets, support profiles, texture/fuzzy override presets, and a custom **Yasin Aribuga Spec** extracted from Tendril project settings.
+**by Yasin Aribuga**
 
-## Features
+## Current build
 
-- Runs locally in the browser.
-- Opens and rewrites `.3mf` packages without uploading files to a server.
-- Turkish / English interface.
-- Micron-adaptive print profiles: 80, 120, 160, 200 micron.
-- Support Lab: easy remove, balanced tree, close contact, max separation, Yasin Support.
-- Texture / Fuzzy override: keep, off, subtle, balanced, strong, Yasin Spec, Yasin Lite.
-- Manifest sync for Bambu Studio project overrides.
-- Fixes invalid `support_style: slim` values.
+v3.7 — Sidebar Polish / Cloud Strict / Texture Override
 
-## Usage
+## What it does
 
-Open `index.html` in a modern browser, upload a `.3mf`, choose a preset, analyze/optimize, then download the optimized `.3mf`.
+- Opens Bambu Studio `.3mf` files locally in the browser.
+- Reads and patches process/support/fuzzy settings inside the 3MF package.
+- Shows a change report before download.
+- Exports a new optimized `.3mf` file.
+- Keeps everything local; files are not uploaded to a server.
+
+## Main features
+
+- Turkish / English UI toggle.
+- Micron adaptive profiles:
+  - 80 micron / 0.08 mm
+  - 120 micron / 0.12 mm
+  - 160 micron / 0.16 mm
+  - 200 micron / 0.20 mm
+- Bambu Cloud Strict mode.
+- Yasin Aribuga Spec preset.
+- Support Lab profiles:
+  - Easy Remove
+  - Balanced Tree
+  - Close Contact
+  - Max Separation
+  - Yasin Support
+- Texture / Fuzzy Override:
+  - Keep existing
+  - Fuzzy off
+  - Subtle
+  - Balanced
+  - Strong
+  - Yasin Spec texture
+  - Yasin Lite texture
+- Preset examples:
+  - Lamp Shade Fuzzy 0.88
+  - Sand & Paint Prep
+  - Visual Polish
+  - Functional Strength
+  - Thin Wall / Organic
+  - Fast Draft
+
+## GitHub Pages
+
+1. Upload these files to a new GitHub repository.
+2. Go to **Settings → Pages**.
+3. Select **Deploy from branch**.
+4. Choose `main` and `/root`.
+5. Open the published Pages URL.
+
+## Local use
+
+Just open `index.html` in a modern browser.
 
 ## Notes
 
-This tool edits project/config settings inside 3MF packages. For final verification, open the optimized file in Bambu Studio and re-slice the plate.
+After opening an optimized `.3mf` in Bambu Studio, slice the plate again. Existing preview/cache data inside a project can belong to the old slice.
 
-## Author
+## License
 
-by yasin aribuga
+MIT

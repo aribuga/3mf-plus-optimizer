@@ -3,22 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>3MF+Optimizer v3.4 — Texture Override</title>
+  <title>3MF+Optimizer v3.7 — Sidebar Polish</title>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <style>
     :root{--bg:#f6f3ea;--ink:#151515;--muted:#68645d;--line:#d9d0c2;--card:#fffdf7;--soft:#eee6d6;--good:#137345;--warn:#996000;--bad:#a22a2a}
     *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 14% -12%,#fff 0,#f6f3ea 42%,#ece3d2 100%);color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;line-height:1.45}.wrap{max-width:1240px;margin:0 auto;padding:34px 18px 70px}
-    header{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:end;margin-bottom:20px} h1{font-size:clamp(34px,6.2vw,78px);line-height:.88;letter-spacing:-.065em;margin:0;text-transform:uppercase}.lead{font-size:14px;color:var(--muted);max-width:760px;margin:16px 0 0}.badge{display:inline-flex;border:1px solid var(--ink);border-radius:999px;padding:6px 10px;font-size:12px;background:#fffdf7;margin:0 6px 6px 0}.grid{display:grid;grid-template-columns:390px 1fr;gap:18px}.card{background:rgba(255,253,247,.9);border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 60px rgba(25,18,7,.06);overflow:hidden}.hd{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.bd{padding:18px}.stack{display:grid;gap:12px}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.drop{border:1.5px dashed #a69b8b;border-radius:20px;background:linear-gradient(135deg,#fffdf7,#f2eadb);padding:28px 18px;text-align:center;min-height:190px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:.16s}.drop.drag{transform:scale(.99);border-color:#111;background:#fff}.drop b{font-size:19px;display:block;margin-bottom:8px}.drop small,.hint{color:var(--muted);font-size:12px}input[type=file]{display:none}select,button{font:inherit}select{width:100%;border:1px solid var(--line);border-radius:14px;background:#fffdf7;padding:11px 12px;color:#111}button{appearance:none;border:1px solid #111;background:#111;color:#fff;border-radius:999px;padding:12px 15px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:8px}button:hover{transform:translateY(-1px)}button:disabled{opacity:.42;cursor:not-allowed;transform:none}.ghost{background:transparent;color:#111}.tiny{font-size:12px;padding:7px 10px}label.opt{display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:start;border:1px solid var(--line);border-radius:16px;padding:12px;background:#fffdf7;cursor:pointer}label.opt input{margin-top:3px}label.opt strong{display:block;font-size:13px}label.opt span{display:block;color:var(--muted);font-size:12px;margin-top:2px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.stat{border:1px solid var(--line);border-radius:18px;padding:13px;background:#fffdf7}.stat b{display:block;font-size:28px;letter-spacing:-.05em}.stat span{font-size:11px;color:var(--muted)}table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}th{position:sticky;top:0;background:#fffdf7;color:var(--muted);font-weight:400;z-index:1}.tablewrap{max-height:470px;overflow:auto;border:1px solid var(--line);border-radius:18px;background:#fffdf7}.mono{font-family:inherit;word-break:break-word}.pill{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:11px;border:1px solid var(--line);background:var(--soft)}.ok{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}details{border:1px solid var(--line);border-radius:18px;background:#fffdf7;padding:12px}summary{cursor:pointer;font-weight:700}.log{white-space:pre-wrap;font-size:12px;color:var(--muted);max-height:250px;overflow:auto;margin-top:10px}.empty{border:1px dashed var(--line);border-radius:18px;padding:22px;color:var(--muted);text-align:center;background:rgba(255,253,247,.58)}.foot{margin-top:22px;color:var(--muted);font-size:12px;max-width:980px}.siteFooter{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;text-transform:lowercase;letter-spacing:.04em}.sectionTitle{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:6px}.checkgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini{font-size:11px;color:var(--muted)}code{background:#f0e7d8;border:1px solid #ddd0bd;border-radius:6px;padding:1px 4px}@media(max-width:940px){header,.grid{grid-template-columns:1fr}.stats,.checkgrid{grid-template-columns:repeat(2,1fr)}}
+    header{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:end;margin-bottom:20px} h1{font-size:clamp(34px,6.2vw,78px);line-height:.88;letter-spacing:-.065em;margin:0;text-transform:uppercase}.lead{font-size:14px;color:var(--muted);max-width:760px;margin:16px 0 0}.badge{display:inline-flex;border:1px solid var(--ink);border-radius:999px;padding:6px 10px;font-size:12px;background:#fffdf7;margin:0 6px 6px 0}.grid{display:grid;grid-template-columns:390px 1fr;gap:18px}.card{background:rgba(255,253,247,.9);border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 60px rgba(25,18,7,.06);overflow:hidden}.hd{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.bd{padding:18px}.stack{display:grid;gap:12px}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.drop{border:1.5px dashed #a69b8b;border-radius:20px;background:linear-gradient(135deg,#fffdf7,#f2eadb);padding:28px 18px;text-align:center;min-height:190px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:.16s}.drop.drag{transform:scale(.99);border-color:#111;background:#fff}.drop b{font-size:19px;display:block;margin-bottom:8px}.drop small,.hint{color:var(--muted);font-size:12px}input[type=file]{display:none}select,button{font:inherit}select{width:100%;border:1px solid var(--line);border-radius:14px;background:#fffdf7;padding:11px 12px;color:#111}button{appearance:none;border:1px solid #111;background:#111;color:#fff;border-radius:999px;padding:12px 15px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:8px}button:hover{transform:translateY(-1px)}button:disabled{opacity:.42;cursor:not-allowed;transform:none}.ghost{background:transparent;color:#111}.tiny{font-size:12px;padding:7px 10px}label.opt{display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:start;border:1px solid var(--line);border-radius:16px;padding:12px;background:#fffdf7;cursor:pointer}label.opt input{margin-top:3px}label.opt strong{display:block;font-size:13px}label.opt span{display:block;color:var(--muted);font-size:12px;margin-top:2px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.stat{border:1px solid var(--line);border-radius:18px;padding:13px;background:#fffdf7}.stat b{display:block;font-size:28px;letter-spacing:-.05em}.stat span{font-size:11px;color:var(--muted)}table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}th{position:sticky;top:0;background:#fffdf7;color:var(--muted);font-weight:400;z-index:1}.tablewrap{max-height:470px;overflow:auto;border:1px solid var(--line);border-radius:18px;background:#fffdf7}.mono{font-family:inherit;word-break:break-word}.pill{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:11px;border:1px solid var(--line);background:var(--soft)}.ok{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}details{border:1px solid var(--line);border-radius:18px;background:#fffdf7;padding:12px}summary{cursor:pointer;font-weight:700}.log{white-space:pre-wrap;font-size:12px;color:var(--muted);max-height:250px;overflow:auto;margin-top:10px}.empty{border:1px dashed var(--line);border-radius:18px;padding:22px;color:var(--muted);text-align:center;background:rgba(255,253,247,.58)}.foot{margin-top:22px;color:var(--muted);font-size:12px;max-width:980px}.siteFooter{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;text-transform:lowercase;letter-spacing:.04em}.sectionTitle{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.085em;margin:0 0 6px}.checkgrid{display:grid;grid-template-columns:1fr;gap:10px}.mini{font-size:11px;color:var(--muted)}code{background:#f0e7d8;border:1px solid #ddd0bd;border-radius:6px;padding:1px 4px}
+    .grid{grid-template-columns:minmax(360px,430px) minmax(0,1fr);align-items:start}.side{display:grid;gap:14px;position:sticky;top:18px;align-self:start}.sideBlock{background:rgba(255,253,247,.92);border:1px solid var(--line);border-radius:22px;box-shadow:0 16px 44px rgba(25,18,7,.055);overflow:hidden}.sideHd{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(238,230,214,.42)}.sideHd strong{font-size:13px;letter-spacing:.01em}.sideBd{padding:15px;display:grid;gap:12px}.actions{position:sticky;bottom:14px}.actions .sideBd{gap:9px}.actions button{width:100%}.selectGroup{display:grid;gap:10px}.selectBox{display:grid;gap:0}.selectBox select{min-height:44px}.optionPanel{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:12px;margin-top:2px}.drop{min-height:140px;padding:20px 14px}.drop b{font-size:17px}.side .empty{padding:16px;font-size:12px}.side label.opt{border-radius:14px;padding:10px}.side label.opt strong{font-size:12px}.side label.opt span span{line-height:1.3}.profileSplit{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profileWide{grid-column:1 / -1}@media(max-width:1120px){.profileSplit{grid-template-columns:1fr}}@media(max-width:940px){header,.grid{grid-template-columns:1fr}.side{position:static}.stats{grid-template-columns:repeat(2,1fr)}}
   </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <div>
-      <div class="row"><span class="badge">Bambu Studio .3mf</span><span class="badge">v3.4</span><span class="badge">0.4 nozzle</span><span class="badge">80 / 120 / 160 / 200 micron</span><span class="badge">MICRON ADAPTIVE ACTIVE</span><span class="badge">YASIN SPEC ACTIVE</span><span class="badge">SUPPORT LAB</span><span class="badge">TR / EN</span><span class="badge">YASIN TOP Z 0.24</span><span class="badge">TEXTURE OVERRIDE</span><span class="badge">local-only</span></div>
+      <div class="row"><span class="badge">Bambu Studio .3mf</span><span class="badge">v3.7</span><span class="badge">0.4 nozzle</span><span class="badge">80 / 120 / 160 / 200 micron</span><span class="badge">MICRON ADAPTIVE ACTIVE</span><span class="badge">YASIN SPEC ACTIVE</span><span class="badge">SUPPORT LAB</span><span class="badge">TR / EN</span><span class="badge">YASIN TOP Z 0.24</span><span class="badge">TEXTURE OVERRIDE</span><span class="badge">CLOUD STRICT</span><span class="badge">local-only</span></div>
       <h1>3MF+<br>OPTIMIZER</h1>
       <p id="leadIntro" class="lead">Bambu Studio proje dosyasını tarayıcıda açar, preset + micron + support profili seçimine göre process config dosyasını ve <code>different_settings_to_system</code> manifest’ini senkron günceller, fark tablosu çıkarır ve yeni .3mf üretir.</p>
-      <p id="leadBuild" class="lead"><strong>Güncel build:</strong> v3.4 — Texture Override eklendi; Yasin Spec fuzzy 0.22 / 0.30 korunur.</p>
+      <p id="leadBuild" class="lead"><strong>Güncel build:</strong> v3.7 — Sol sidebar tasarımı toparlandı; Cloud Strict + Texture Override korunur.</p>
     </div>
     <div class="card"><div class="bd stack">
       <div><div class="sectionTitle" id="languageTitle">Dil / Language</div><select id="languageSelect"><option value="tr" selected>Türkçe</option><option value="en">English</option></select></div>
@@ -29,76 +30,92 @@
   </header>
 
   <main class="grid">
-    <aside class="card">
-      <div class="hd"><strong id="fileHeader">01 / Dosya</strong><span id="fileState" class="pill">bekliyor</span></div>
-      <div class="bd stack">
-        <label id="drop" class="drop" for="fileInput"><input id="fileInput" type="file" accept=".3mf,.zip"><b id="dropTitle">.3mf bırak / seç</b><small id="dropHint">Dosya lokal açılır; sunucuya yüklenmez.</small></label>
-        <div id="fileMeta" class="empty">Henüz dosya yok.</div>
-      </div>
-
-      <div class="hd"><strong id="profileHeader">02 / Profil</strong><span class="pill">preset</span></div>
-      <div class="bd stack">
-        <div><div class="sectionTitle" id="profileTitle">Baskı amacı</div><select id="profileSelect">
-          <option value="yasin_spec" selected>Yasin Aribuga Spec — Tendril Base v4 / 0.12 support</option>
-          <option value="lamp_fuzzy">Lamp Shade Fuzzy 0.88 — başlık / küre / 0.88 mm</option>
-          <option value="sand_paint">Sand & Paint Prep — zımpara + boya</option>
-          <option value="fine">Fine Balanced — genel kalite</option>
-          <option value="visual">Visual Polish — vitrin / temiz yüzey</option>
-          <option value="strength">Functional Strength — daha rijit</option>
-          <option value="organic">Organic / Thin Wall — heykel, lamba, ince form</option>
-          <option value="support">Support Master — temiz sökülen destek</option>
-          <option value="fast">Fast — kaliteyi bozmadan hız</option>
-          <option value="mini">Mini Detail — küçük parça / yazı / detay</option>
-          <option value="vase">Vase / Lamp Shell — tek duvar deneysel</option>
-        </select></div>
-        <div><div class="sectionTitle" id="micronTitle">Layer height / micron</div><select id="micronSelect">
-          <option value="80">80 micron / 0.08 mm — ultra detail</option>
-          <option value="120" selected>120 micron / 0.12 mm — quality default</option>
-          <option value="160">160 micron / 0.16 mm — production</option>
-          <option value="200">200 micron / 0.20 mm — draft / prototype</option>
-        </select></div>
-        <div><div class="sectionTitle" id="materialTitle">Malzeme davranışı</div><select id="materialSelect">
-          <option value="pla" selected>PLA / PLA+</option><option value="petg">PETG</option><option value="tpu">TPU</option><option value="absasa">ABS / ASA</option><option value="none">Malzeme ayarına dokunma</option>
-        </select></div>
-        <div><div class="sectionTitle" id="supportModeTitle">Support motoru</div><select id="supportMode">
-          <option value="keep" selected>Mevcut support motorunu koru</option>
-          <option value="off">Support kapat</option>
-          <option value="tree_slim">Tree Slim aç — geçerli Bambu değeri</option>
-          <option value="snug">Normal / Snug support aç</option>
-        </select></div>
-        <div><div class="sectionTitle" id="supportProfileTitle">Support profili</div><select id="supportProfile">
-          <option value="profile_default" selected>Profil varsayılanı / dokunma</option>
-          <option value="easy_remove">Easy Remove — kolay sökülür, az iz</option>
-          <option value="balanced_tree">Balanced Tree — kalite / sökme dengesi</option>
-          <option value="clean_underside">Close Contact — daha temiz alt yüzey</option>
-          <option value="max_separation">Max Separation — iz en az, alt yüzey daha riskli</option>
-          <option value="yasin_support">Yasin Support — Tendril_base_v4 support</option>
-        </select></div>
-        <div><div class="sectionTitle" id="textureTitle">Texture / Fuzzy override</div><select id="textureOverride">
-          <option value="profile_default" selected>Profil varsayılanı</option>
-          <option value="keep_file">Dosyadaki fuzzy ayarını koru</option>
-          <option value="off">Fuzzy kapat</option>
-          <option value="subtle">Subtle texture — hafif doku</option>
-          <option value="balanced">Balanced texture — dengeli doku</option>
-          <option value="strong">Strong texture — güçlü doku</option>
-          <option value="yasin_spec">Yasin Spec texture — 0.22 / 0.30</option>
-          <option value="yasin_lite">Yasin Lite texture — ince yüzey güvenli</option>
-        </select></div>
-        <div><div class="sectionTitle" id="riskTitle">Risk seviyesi</div><select id="riskSelect"><option value="safe">Safe — az ve sağlam değişiklik</option><option value="balanced" selected>Balanced — önerilen</option><option value="aggressive">Aggressive — daha deneysel</option></select></div>
-        <div class="checkgrid">
-          <label class="opt"><input id="applyMachine" type="checkbox" checked><span><strong id="machineTitle">0.4 nozzle kontrolü</strong><span id="machineHint">nozzle_diameter / printer_variant değerlerini 0.4’e çeker.</span></span></label>
-          <label class="opt"><input id="enableBrim" type="checkbox"><span><strong id="brimTitle">Auto brim</strong><span id="brimHint">Küçük temas alanı / warping riskinde.</span></span></label>
-          <label class="opt"><input id="enableIroning" type="checkbox"><span><strong id="ironTitle">Top ironing</strong><span id="ironHint">Sadece düz üst yüzey için. Fuzzy başlıkta önerilmez.</span></span></label>
-          <label class="opt"><input id="compatOnly" type="checkbox"><span><strong id="compatTitle">Sadece uyumluluk onar</strong><span id="compatHint">Bozuk enumları düzeltir, profil uygulamaz.</span></span></label>
+    <aside class="side" aria-label="Optimizer controls">
+      <section class="sideBlock">
+        <div class="sideHd"><strong id="fileHeader">01 / Dosya</strong><span id="fileState" class="pill">bekliyor</span></div>
+        <div class="sideBd">
+          <label id="drop" class="drop" for="fileInput"><input id="fileInput" type="file" accept=".3mf,.zip"><b id="dropTitle">.3mf bırak / seç</b><small id="dropHint">Dosya lokal açılır; sunucuya yüklenmez.</small></label>
+          <div id="fileMeta" class="empty">Henüz dosya yok.</div>
         </div>
-        <div id="presetSummary" class="empty">Preset seçilince özet burada görünür.</div>
-      </div>
+      </section>
 
-      <div class="bd stack">
-        <button id="runBtn" disabled>Analiz et & optimize et</button>
-        <button id="downloadBtn" disabled class="ghost">Optimize .3mf indir</button>
-        <button id="reportBtn" disabled class="ghost">Rapor JSON indir</button>
-      </div>
+      <section class="sideBlock">
+        <div class="sideHd"><strong id="profileHeader">02 / Profil</strong><span class="pill">preset</span></div>
+        <div class="sideBd">
+          <div class="selectGroup">
+            <div class="selectBox profileWide"><div class="sectionTitle" id="profileTitle">Baskı amacı</div><select id="profileSelect">
+              <option value="yasin_spec" selected>Yasin Aribuga Spec — Tendril Base v4 / 0.12 support</option>
+              <option value="lamp_fuzzy">Lamp Shade Fuzzy 0.88 — başlık / küre / 0.88 mm</option>
+              <option value="sand_paint">Sand & Paint Prep — zımpara + boya</option>
+              <option value="fine">Fine Balanced — genel kalite</option>
+              <option value="visual">Visual Polish — vitrin / temiz yüzey</option>
+              <option value="strength">Functional Strength — daha rijit</option>
+              <option value="organic">Organic / Thin Wall — heykel, lamba, ince form</option>
+              <option value="support">Support Master — temiz sökülen destek</option>
+              <option value="fast">Fast — kaliteyi bozmadan hız</option>
+              <option value="mini">Mini Detail — küçük parça / yazı / detay</option>
+              <option value="vase">Vase / Lamp Shell — tek duvar deneysel</option>
+            </select></div>
+
+            <div class="profileSplit">
+              <div class="selectBox"><div class="sectionTitle" id="micronTitle">Layer height / micron</div><select id="micronSelect">
+                <option value="80">80 micron / 0.08 mm — ultra detail</option>
+                <option value="120" selected>120 micron / 0.12 mm — quality default</option>
+                <option value="160">160 micron / 0.16 mm — production</option>
+                <option value="200">200 micron / 0.20 mm — draft / prototype</option>
+              </select></div>
+              <div class="selectBox"><div class="sectionTitle" id="materialTitle">Malzeme davranışı</div><select id="materialSelect">
+                <option value="pla" selected>PLA / PLA+</option><option value="petg">PETG</option><option value="tpu">TPU</option><option value="absasa">ABS / ASA</option><option value="none">Malzeme ayarına dokunma</option>
+              </select></div>
+            </div>
+
+            <div class="optionPanel">
+              <div class="selectBox"><div class="sectionTitle" id="supportModeTitle">Support motoru</div><select id="supportMode">
+                <option value="keep" selected>Mevcut support motorunu koru</option>
+                <option value="off">Support kapat</option>
+                <option value="tree_slim">Tree Slim aç — geçerli Bambu değeri</option>
+                <option value="snug">Normal / Snug support aç</option>
+              </select></div>
+              <div class="selectBox"><div class="sectionTitle" id="supportProfileTitle">Support profili</div><select id="supportProfile">
+                <option value="profile_default" selected>Profil varsayılanı / dokunma</option>
+                <option value="easy_remove">Easy Remove — kolay sökülür, az iz</option>
+                <option value="balanced_tree">Balanced Tree — kalite / sökme dengesi</option>
+                <option value="clean_underside">Close Contact — daha temiz alt yüzey</option>
+                <option value="max_separation">Max Separation — iz en az, alt yüzey daha riskli</option>
+                <option value="yasin_support">Yasin Support — Tendril_base_v4 support</option>
+              </select></div>
+              <div class="selectBox"><div class="sectionTitle" id="textureTitle">Texture / Fuzzy override</div><select id="textureOverride">
+                <option value="profile_default" selected>Profil varsayılanı</option>
+                <option value="keep_file">Dosyadaki fuzzy ayarını koru</option>
+                <option value="off">Fuzzy kapat</option>
+                <option value="subtle">Subtle texture — hafif doku</option>
+                <option value="balanced">Balanced texture — dengeli doku</option>
+                <option value="strong">Strong texture — güçlü doku</option>
+                <option value="yasin_spec">Yasin Spec texture — 0.22 / 0.30</option>
+                <option value="yasin_lite">Yasin Lite texture — ince yüzey güvenli</option>
+              </select></div>
+              <div class="selectBox"><div class="sectionTitle" id="riskTitle">Risk seviyesi</div><select id="riskSelect"><option value="safe">Safe — az ve sağlam değişiklik</option><option value="balanced" selected>Balanced — önerilen</option><option value="aggressive">Aggressive — daha deneysel</option></select></div>
+            </div>
+          </div>
+
+          <div class="checkgrid">
+            <label class="opt"><input id="applyMachine" type="checkbox" checked><span><strong id="machineTitle">0.4 nozzle kontrolü</strong><span id="machineHint">nozzle_diameter / printer_variant değerlerini 0.4’e çeker.</span></span></label>
+            <label class="opt"><input id="cloudSafe" type="checkbox" checked><span><strong id="cloudSafeTitle">Bambu Cloud strict</strong><span id="cloudSafeHint">Account/printer bağlantısı bozulmasın diye machine/host/filament-cloud riskli override yazmaz ve manifestten temizler.</span></span></label>
+            <label class="opt"><input id="enableBrim" type="checkbox"><span><strong id="brimTitle">Auto brim</strong><span id="brimHint">Küçük temas alanı / warping riskinde.</span></span></label>
+            <label class="opt"><input id="enableIroning" type="checkbox"><span><strong id="ironTitle">Top ironing</strong><span id="ironHint">Sadece düz üst yüzey için. Fuzzy başlıkta önerilmez.</span></span></label>
+            <label class="opt"><input id="compatOnly" type="checkbox"><span><strong id="compatTitle">Sadece uyumluluk onar</strong><span id="compatHint">Bozuk enumları düzeltir, profil uygulamaz.</span></span></label>
+          </div>
+          <div id="presetSummary" class="empty">Preset seçilince özet burada görünür.</div>
+        </div>
+      </section>
+
+      <section class="sideBlock actions">
+        <div class="sideBd">
+          <button id="runBtn" disabled>Analiz et & optimize et</button>
+          <button id="downloadBtn" disabled class="ghost">Optimize .3mf indir</button>
+          <button id="reportBtn" disabled class="ghost">Rapor JSON indir</button>
+        </div>
+      </section>
     </aside>
 
     <section class="card">
@@ -126,7 +143,7 @@
       </div>
     </section>
   </main>
-  <footer id="siteFooter" class="siteFooter">by yasin aribuga · v3.4 texture override · bilingual support lab</footer>
+  <footer id="siteFooter" class="siteFooter">by yasin aribuga · v3.7 sidebar polish · cloud strict · texture override</footer>
 </div>
 
 <script>
@@ -480,19 +497,19 @@ function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
 const UI_TEXT = {
   tr: {
     leadIntro:'Bambu Studio proje dosyasını tarayıcıda açar, preset + micron + support profili seçimine göre process config dosyasını ve different_settings_to_system manifest’ini senkron günceller, fark tablosu çıkarır ve yeni .3mf üretir.',
-    leadBuild:'Güncel build: v3.4 — Texture Override eklendi; Yasin Spec fuzzy 0.22 / 0.30 korunur.',
+    leadBuild:'Güncel build: v3.7 — Texture Override eklendi; Yasin Spec fuzzy 0.22 / 0.30 korunur.',
     languageTitle:'Dil / Language', systemTitle:'Preset sistemi', systemHint:'Yasin Aribuga Spec, Tendril_base_v4 içindeki 0.12 mm process + kritik support ayarlarını alır. Diğer profiller micron ve support seviyesine göre adapte olur.', supportLabTitle:'Support Lab', supportLabHint:'Support profili, ağaç desteğin modele ne kadar yakın duracağını belirler: kolay sökülme / iz azaltma için mesafe artar; daha temiz alt yüzey için mesafe azalır.', rimTitle:'Rim notu', rimHint:'Üst ağız temiz kalsın istiyorsan Bambu Studio’da modifier ile son 5–10 mm’de fuzzy kapat. Bu site geometri modifier’ı eklemez; process ayarını günceller.',
     fileHeader:'01 / Dosya', waiting:'bekliyor', dropTitle:'.3mf bırak / seç', dropHint:'Dosya lokal açılır; sunucuya yüklenmez.', noFile:'Henüz dosya yok.', profileHeader:'02 / Profil', profileTitle:'Baskı amacı', micronTitle:'Layer height / micron', materialTitle:'Malzeme davranışı', supportModeTitle:'Support motoru', supportProfileTitle:'Support profili', textureTitle:'Texture / Fuzzy override', riskTitle:'Risk seviyesi',
-    machineTitle:'0.4 nozzle kontrolü', machineHint:'nozzle_diameter / printer_variant değerlerini 0.4’e çeker.', brimTitle:'Auto brim', brimHint:'Küçük temas alanı / warping riskinde.', ironTitle:'Top ironing', ironHint:'Sadece düz üst yüzey için. Fuzzy başlıkta önerilmez.', compatTitle:'Sadece uyumluluk onar', compatHint:'Bozuk enumları düzeltir, profil uygulamaz.',
-    runBtn:'Analiz et & optimize et', downloadBtn:'Optimize .3mf indir', reportBtn:'Rapor JSON indir', reportHeader:'03 / Değişiklikler', notReady:'hazır değil', statFilesLabel:'taranan entry', statFoundLabel:'bulunan ayar', statChangedLabel:'değişiklik', statWarnLabel:'uyarı', diffEmpty:'Henüz analiz yok.', postHeader:'04 / İndirme öncesi kontrol', logTitle:'Kontrol raporu', ready:'Hazır.', postEmpty:'Optimize sonrası kritik değerler burada görünür.', sliceNote:'Not: Bu dosyayı Bambu Studio’da açtıktan sonra mutlaka yeniden slice et. Mevcut plate/cache bilgileri eski slice’a ait olabilir; process değerleri değiştiği için nihai G-code’u Studio üretmeli.', footer:'by yasin aribuga · v3.4 texture override · bilingual support lab'
+    machineTitle:'0.4 nozzle kontrolü', machineHint:'nozzle_diameter / printer_variant değerlerini 0.4’e çeker.', cloudSafeTitle:'Bambu Cloud strict', cloudSafeHint:'Account/printer bağlantısı bozulmasın diye machine/host/filament-cloud riskli override yazmaz ve manifestten temizler.', brimTitle:'Auto brim', brimHint:'Küçük temas alanı / warping riskinde.', ironTitle:'Top ironing', ironHint:'Sadece düz üst yüzey için. Fuzzy başlıkta önerilmez.', compatTitle:'Sadece uyumluluk onar', compatHint:'Bozuk enumları düzeltir, profil uygulamaz.',
+    runBtn:'Analiz et & optimize et', downloadBtn:'Optimize .3mf indir', reportBtn:'Rapor JSON indir', reportHeader:'03 / Değişiklikler', notReady:'hazır değil', statFilesLabel:'taranan entry', statFoundLabel:'bulunan ayar', statChangedLabel:'değişiklik', statWarnLabel:'uyarı', diffEmpty:'Henüz analiz yok.', postHeader:'04 / İndirme öncesi kontrol', logTitle:'Kontrol raporu', ready:'Hazır.', postEmpty:'Optimize sonrası kritik değerler burada görünür.', sliceNote:'Not: Bu dosyayı Bambu Studio’da açtıktan sonra mutlaka yeniden slice et. Mevcut plate/cache bilgileri eski slice’a ait olabilir; process değerleri değiştiği için nihai G-code’u Studio üretmeli.', footer:'by yasin aribuga · v3.7 cloud strict · texture override'
   },
   en: {
     leadIntro:'Opens a Bambu Studio project locally in your browser, syncs process config and the different_settings_to_system manifest according to preset + micron + support profile, shows a diff table, and exports a new .3mf.',
-    leadBuild:'Current build: v3.4 — Texture Override added; Yasin Spec fuzzy 0.22 / 0.30 is preserved.',
+    leadBuild:'Current build: v3.7 — Texture Override added; Yasin Spec fuzzy 0.22 / 0.30 is preserved.',
     languageTitle:'Language / Dil', systemTitle:'Preset system', systemHint:'Yasin Aribuga Spec captures the 0.12 mm process and critical support settings from Tendril_base_v4. Other profiles adapt by micron and support level.', supportLabTitle:'Support Lab', supportLabHint:'The support profile controls how close tree supports sit to the model: larger distance means easier removal and fewer marks; closer contact means cleaner undersides.', rimTitle:'Rim note', rimHint:'For a clean top rim, disable fuzzy on the last 5–10 mm with a Bambu Studio modifier. This site updates process settings; it does not add geometry modifiers.',
     fileHeader:'01 / File', waiting:'waiting', dropTitle:'drop / choose .3mf', dropHint:'The file is opened locally; nothing is uploaded.', noFile:'No file yet.', profileHeader:'02 / Profile', profileTitle:'Print goal', micronTitle:'Layer height / micron', materialTitle:'Material behavior', supportModeTitle:'Support engine', supportProfileTitle:'Support profile', textureTitle:'Texture / Fuzzy override', riskTitle:'Risk level',
     machineTitle:'0.4 nozzle check', machineHint:'Forces nozzle_diameter / printer_variant to 0.4.', brimTitle:'Auto brim', brimHint:'For small contact areas / warping risk.', ironTitle:'Top ironing', ironHint:'Only for flat top surfaces. Not recommended for fuzzy lamp shades.', compatTitle:'Compatibility repair only', compatHint:'Fixes invalid enums without applying a profile.',
-    runBtn:'Analyze & optimize', downloadBtn:'Download optimized .3mf', reportBtn:'Download JSON report', reportHeader:'03 / Changes', notReady:'not ready', statFilesLabel:'scanned entries', statFoundLabel:'settings found', statChangedLabel:'changes', statWarnLabel:'warnings', diffEmpty:'No analysis yet.', postHeader:'04 / Pre-download check', logTitle:'Control report', ready:'Ready.', postEmpty:'Critical values will appear here after optimization.', sliceNote:'Note: After opening this file in Bambu Studio, slice it again. Existing plate/cache data may belong to the old slice; Studio must generate the final G-code from the updated process values.', footer:'by yasin aribuga · v3.4 texture override · bilingual support lab'
+    runBtn:'Analyze & optimize', downloadBtn:'Download optimized .3mf', reportBtn:'Download JSON report', reportHeader:'03 / Changes', notReady:'not ready', statFilesLabel:'scanned entries', statFoundLabel:'settings found', statChangedLabel:'changes', statWarnLabel:'warnings', diffEmpty:'No analysis yet.', postHeader:'04 / Pre-download check', logTitle:'Control report', ready:'Ready.', postEmpty:'Critical values will appear here after optimization.', sliceNote:'Note: After opening this file in Bambu Studio, slice it again. Existing plate/cache data may belong to the old slice; Studio must generate the final G-code from the updated process values.', footer:'by yasin aribuga · v3.7 cloud strict · texture override'
   }
 };
 const OPTION_TEXT = {
@@ -566,9 +583,9 @@ function setText(id, value){ const el = $(id); if(el) el.textContent = value; }
 function setOptionTexts(selectId, lang){ const el = $(selectId); const group = OPTION_TEXT[selectId] && OPTION_TEXT[selectId][lang]; if(!el || !group) return; Array.from(el.options).forEach(o=>{ if(group[o.value]) o.textContent = group[o.value]; }); }
 function applyLanguage(){
   const lang = currentLang(); const T = UI_TEXT[lang]; document.documentElement.lang = lang;
-  ['languageTitle','systemTitle','systemHint','supportLabTitle','supportLabHint','rimTitle','rimHint','fileHeader','dropTitle','dropHint','profileHeader','profileTitle','micronTitle','materialTitle','supportModeTitle','supportProfileTitle','textureTitle','riskTitle','machineTitle','machineHint','brimTitle','brimHint','ironTitle','ironHint','compatTitle','compatHint','runBtn','downloadBtn','reportBtn','reportHeader','statFilesLabel','statFoundLabel','statChangedLabel','statWarnLabel','diffEmpty','postHeader','logTitle','sliceNote'].forEach(id=>{ if(T[id]) setText(id,T[id]); });
+  ['languageTitle','systemTitle','systemHint','supportLabTitle','supportLabHint','rimTitle','rimHint','fileHeader','dropTitle','dropHint','profileHeader','profileTitle','micronTitle','materialTitle','supportModeTitle','supportProfileTitle','textureTitle','riskTitle','machineTitle','machineHint','cloudSafeTitle','cloudSafeHint','brimTitle','brimHint','ironTitle','ironHint','compatTitle','compatHint','runBtn','downloadBtn','reportBtn','reportHeader','statFilesLabel','statFoundLabel','statChangedLabel','statWarnLabel','diffEmpty','postHeader','logTitle','sliceNote'].forEach(id=>{ if(T[id]) setText(id,T[id]); });
   const leadIntro = $('leadIntro'); if(leadIntro) leadIntro.innerHTML = T.leadIntro.replace('different_settings_to_system','<code>different_settings_to_system</code>');
-  const leadBuild = $('leadBuild'); if(leadBuild) leadBuild.innerHTML = lang === 'en' ? '<strong>Current build:</strong> v3.4 — Texture Override added; Yasin Spec fuzzy 0.22 / 0.30 is preserved.' : '<strong>Güncel build:</strong> v3.4 — Texture Override eklendi; Yasin Spec fuzzy 0.22 / 0.30 korunur.';
+  const leadBuild = $('leadBuild'); if(leadBuild) leadBuild.innerHTML = lang === 'en' ? '<strong>Current build:</strong> v3.7 — Texture Override added; Yasin Spec fuzzy 0.22 / 0.30 is preserved.' : '<strong>Güncel build:</strong> v3.7 — Texture Override eklendi; Yasin Spec fuzzy 0.22 / 0.30 korunur.';
   setText('siteFooter',T.footer);
   if($('fileState') && $('fileState').textContent === UI_TEXT[lang === 'tr' ? 'en' : 'tr'].waiting) setText('fileState',T.waiting);
   if($('fileMeta') && !$('fileMeta').querySelector('strong')) setText('fileMeta',T.noFile);
@@ -781,13 +798,38 @@ function applyTextureOverrideRules(rules, textureKey, micronKey){
   setRule(rules,'fuzzy_skin_mode','displacement',`${reasonName}: displacement fuzzy modu`);
   setRule(rules,'fuzzy_skin_noise_type','classic',`${reasonName}: classic noise`);
 }
+
+const CLOUD_UNSAFE_RULE_KEYS = new Set([
+  'nozzle_diameter','printer_variant','min_layer_height','max_layer_height',
+  'host_type','print_host','printhost_apikey','printhost_authorization_type','printhost_cafile','printhost_ssl_ignore_revoke',
+  'printer_model','printer_settings_id','printer_technology','machine_start_gcode','machine_end_gcode',
+  'nozzle_temperature','nozzle_temperature_initial_layer','nozzle_temperature_range_high','nozzle_temperature_range_low',
+  'bed_temperature','bed_temperature_initial_layer','bed_temperature_formula','curr_bed_type',
+  'filament_flow_ratio','filament_max_volumetric_speed','filament_type','filament_extruder_variant','filament_nozzle_map',
+  'fan_min_speed','fan_max_speed','first_x_layer_fan_speed','first_x_layer_part_fan_speed','full_fan_speed_layer',
+  'additional_cooling_fan_speed','additional_fan_full_speed_layer','auxiliary_fan','activate_air_filtration',
+  'flush_into_support','flush_volumetric_speeds','flush_temperatures'
+]);
+function cloudSafeEnabled(){ const el = $('cloudSafe'); return !el || el.checked; }
+function isCloudUnsafeKey(k){
+  return CLOUD_UNSAFE_RULE_KEYS.has(k) ||
+    k.startsWith('machine_') || k.startsWith('printhost_') || k.startsWith('printer_') ||
+    k.startsWith('filament_') || k.startsWith('flush_') ||
+    k === 'host_type' || k === 'print_host' ||
+    k.includes('authorization') || k.includes('apikey') || k.includes('access_code');
+}
+function stripCloudUnsafeRules(rules){
+  for(const k of Object.keys(rules)){
+    if(isCloudUnsafeKey(k)) delete rules[k];
+  }
+}
 function buildRules(){
   let rules = {};
   if(!$('compatOnly').checked){
     const pk = $('profileSelect').value;
     Object.assign(rules, clone(PRESET_INFO[pk].rules));
     if(pk !== 'yasin_spec' && $('materialSelect').value !== 'none') Object.assign(rules, clone(MATERIAL_RULES[$('materialSelect').value] || {}));
-    if($('applyMachine').checked) Object.assign(rules, clone(MACHINE_RULES));
+    if($('applyMachine').checked && !cloudSafeEnabled()) Object.assign(rules, clone(MACHINE_RULES));
     const supportMode = $('supportMode').value;
     if(supportMode !== 'keep') Object.assign(rules, clone(SUPPORT_MODE_RULES[supportMode]));
     if($('enableBrim').checked) Object.assign(rules, clone(BRIM_RULES));
@@ -796,6 +838,7 @@ function buildRules(){
     Object.assign(rules, supportProfileRules($('supportProfile').value, $('micronSelect').value, $('supportMode').value));
     applyTextureOverrideRules(rules, $('textureOverride').value, $('micronSelect').value);
     if($('riskSelect').value === 'safe') delete rules.fan_min_speed;
+    if(cloudSafeEnabled()) stripCloudUnsafeRules(rules);
     if($('riskSelect').value === 'aggressive' && $('profileSelect').value === 'lamp_fuzzy') {
       rules.outer_wall_speed = {v:['45'], reason:'Aggressive kalite: daha yavaş dış duvar'};
       if($('textureOverride').value === 'profile_default') rules.fuzzy_skin_thickness = {v:'0.12', reason:'Aggressive fuzzy: daha belirgin doku'};
@@ -868,19 +911,31 @@ function addMissingProjectSettings(json,rules,file,changes,found){
   }
 }
 function syncDifferentSettings(json,rules,file,changes){
+  const cloudSafe = cloudSafeEnabled();
   if(!json || typeof json !== 'object' || Array.isArray(json)) return;
   const keys = Object.keys(rules);
-  if(!keys.length) return;
   const machineKeys = new Set(['nozzle_diameter','printer_variant','min_layer_height','max_layer_height']);
   let old = json.different_settings_to_system;
   let arr = Array.isArray(old) ? old.slice(0,3) : ['', '', ''];
   while(arr.length < 3) arr.push('');
   const sets = arr.map(s => new Set(String(s || '').split(';').filter(Boolean)));
-  keys.forEach(k => sets[machineKeys.has(k) ? 2 : 0].add(k));
+
+  // Cloud Strict: eski/bad optimize dosyasından kalmış machine, host, printer ve filament-cloud override'larını da temizle.
+  // Bambu Studio cloud send/account tarafı bu alanlara hassas davranabiliyor.
+  if(cloudSafe){
+    for(let i=0;i<sets.length;i++) sets[i] = new Set([...sets[i]].filter(k => !isCloudUnsafeKey(k) && !machineKeys.has(k)));
+    sets[2].clear(); // machine slot tamamen boş kalsın
+  }
+
+  keys.forEach(k => {
+    if(cloudSafe && (isCloudUnsafeKey(k) || machineKeys.has(k))) return;
+    sets[machineKeys.has(k) ? 2 : 0].add(k);
+  });
+
   const next = sets.map(s => Array.from(s).sort().join(';'));
   if(!same(old,next)){
     json.different_settings_to_system = next;
-    record(changes,'manifest','different_settings_to_system',file,old || '∅',next,'Bambu Studio’nun proje override olarak okuması için manifest senkronu','root');
+    record(changes,'manifest','different_settings_to_system',file,old || '∅',next, cloudSafe ? 'Cloud Strict: manifestten printer/host/filament riskli override temizlendi, process ayarları senkronlandı' : 'Bambu Studio’nun proje override olarak okuması için manifest senkronu','root');
   }
 }
 function patchLooseCompatibility(text,file,changes,found){
@@ -978,10 +1033,10 @@ async function processFile(){
           if(name === 'Metadata/project_settings.config'){
             addMissingProjectSettings(json,rules,name,changes,found);
             syncDifferentSettings(json,rules,name,changes);
-            json.process_notes = `Optimized by 3MF+Optimizer v3.4 — ${profileInfo().title} — ${MICRON_INFO[$('micronSelect').value].label} — ${new Date().toISOString()}`;
+            json.process_notes = `Optimized by 3MF+Optimizer v3.7 — ${profileInfo().title} — ${MICRON_INFO[$('micronSelect').value].label} — ${new Date().toISOString()}`;
           }
           if(name.endsWith('plate_1.json') && !$('compatOnly').checked){
-            if(json.nozzle_diameter !== undefined && $('applyMachine').checked && json.nozzle_diameter !== 0.4){ record(changes,'metadata','nozzle_diameter',name,json.nozzle_diameter,0.4,'Plate metadata nozzle göstergesi','plate'); json.nozzle_diameter = 0.4; }
+            if(json.nozzle_diameter !== undefined && $('applyMachine').checked && !cloudSafeEnabled() && json.nozzle_diameter !== 0.4){ record(changes,'metadata','nozzle_diameter',name,json.nozzle_diameter,0.4,'Plate metadata nozzle göstergesi','plate'); json.nozzle_diameter = 0.4; }
             if(Array.isArray(json.bbox_objects)){ json.bbox_objects.forEach((o,i)=>{ if(o && o.layer_height !== undefined && String(o.layer_height) !== String(rules.layer_height?.v || o.layer_height)){ record(changes,'metadata','bbox_objects.layer_height',name,o.layer_height,rules.layer_height.v,'Plate metadata layer göstergesi',`bbox_objects.${i}`); o.layer_height = Number(rules.layer_height.v); } }); }
           }
           if(changes.length > before || name === 'Metadata/project_settings.config'){ nextText = JSON.stringify(json,null,2); changed = nextText !== text; }
@@ -994,7 +1049,7 @@ async function processFile(){
     if(verification.bad) warnings.push('Download kilitlendi: paket içinde hâlâ support_style: slim var.');
     if(!changes.length) warnings.push('Değiştirilecek ayar bulunamadı ya da dosya zaten seçili profile çok yakın.');
     state.optimizedBlob = verification.bad ? null : blob;
-    state.report = {source:state.originalName,generatedAt:new Date().toISOString(),version:'3.2',profile:$('profileSelect').value,profileTitle:profileInfo().title,micron:$('micronSelect').value,micronLabel:MICRON_INFO[$('micronSelect').value].label,material:$('materialSelect').value,language:$('languageSelect').value,supportMode:$('supportMode').value,supportProfile:$('supportProfile').value,risk:$('riskSelect').value,rulesApplied:Object.keys(rules),changedCount:changes.length,foundCount:found.size,warnings,changes,verification};
+    state.report = {source:state.originalName,generatedAt:new Date().toISOString(),version:'3.6-cloud-strict',profile:$('profileSelect').value,profileTitle:profileInfo().title,micron:$('micronSelect').value,micronLabel:MICRON_INFO[$('micronSelect').value].label,material:$('materialSelect').value,language:$('languageSelect').value,supportMode:$('supportMode').value,supportProfile:$('supportProfile').value,risk:$('riskSelect').value,cloudSafe:cloudSafeEnabled(),rulesApplied:Object.keys(rules),changedCount:changes.length,foundCount:found.size,warnings,changes,verification};
     renderChanges(changes); setStats(candidates.length,found.size,changes.length,warnings.length);
     warnings.forEach(w=>logLine('⚠ '+w));
     logLine(verification.bad ? 'Durduruldu: bozuk support_style kaldı.' : '✓ Paket doğrulandı: support_style slim kalmadı.');
@@ -1008,14 +1063,14 @@ function downloadBlob(blob,name){ const a=document.createElement('a'); a.href=UR
 function outName(suffix){ const base=(state.originalName || 'project.3mf').replace(/\.(3mf|zip)$/i,''); return `${base}${suffix}`; }
 function acceptFile(file){ state.file=file; state.originalName=file.name; state.optimizedBlob=null; state.report=null; state.dirty=false; $('fileState').textContent='yüklendi'; $('fileState').className='pill ok'; $('fileMeta').innerHTML=`<strong>${escapeHtml(file.name)}</strong><br><span style="color:var(--muted);font-size:12px">${(file.size/1024/1024).toFixed(2)} MB</span>`; $('runBtn').disabled=false; $('downloadBtn').disabled=true; $('reportBtn').disabled=true; $('summaryState').textContent='hazır değil'; $('summaryState').className='pill'; $('log').textContent='Dosya seçildi. Analiz/optimize butonuna bas.'; }
 $('runBtn').addEventListener('click', processFile);
-$('downloadBtn').addEventListener('click', ()=> state.optimizedBlob && downloadBlob(state.optimizedBlob, outName(`_optimized_v3.4_${$('micronSelect').value}micron.3mf`)));
-$('reportBtn').addEventListener('click', ()=> state.report && downloadBlob(new Blob([JSON.stringify(state.report,null,2)],{type:'application/json'}), outName(`_optimization_report_v3.4_${$('micronSelect').value}micron.json`)));
+$('downloadBtn').addEventListener('click', ()=> state.optimizedBlob && downloadBlob(state.optimizedBlob, outName(`_optimized_v3.7_${$('micronSelect').value}micron.3mf`)));
+$('reportBtn').addEventListener('click', ()=> state.report && downloadBlob(new Blob([JSON.stringify(state.report,null,2)],{type:'application/json'}), outName(`_optimization_report_v3.7_${$('micronSelect').value}micron.json`)));
 $('fileInput').addEventListener('change', e=>{ if(e.target.files[0]) acceptFile(e.target.files[0]); });
 const drop = $('drop');
 ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault(); drop.classList.add('drag');}));
 ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault(); drop.classList.remove('drag');}));
 drop.addEventListener('drop', e=>{ const file=e.dataTransfer.files[0]; if(file) acceptFile(file); });
-['profileSelect','micronSelect','materialSelect','supportMode','supportProfile','textureOverride','riskSelect','applyMachine','enableBrim','enableIroning','compatOnly'].forEach(id=>$(id).addEventListener('change',()=>{ renderPresetSummary(); invalidate(); }));
+['profileSelect','micronSelect','materialSelect','supportMode','supportProfile','textureOverride','riskSelect','applyMachine','cloudSafe','enableBrim','enableIroning','compatOnly'].forEach(id=>$(id).addEventListener('change',()=>{ renderPresetSummary(); invalidate(); }));
 $('languageSelect').addEventListener('change',()=>{ applyLanguage(); invalidate(); });
 applyLanguage();
 </script>
