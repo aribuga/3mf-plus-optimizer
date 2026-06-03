@@ -6,7 +6,7 @@ Local-only Bambu Studio `.3mf` optimizer for 0.4 mm nozzle workflows.
 
 ## Current build
 
-v3.7 — Sidebar Polish / Cloud Strict / Texture Override
+v3.9 — Dark Mode / Modular Build / Soft Error Handling
 
 ## What it does
 
@@ -19,6 +19,7 @@ v3.7 — Sidebar Polish / Cloud Strict / Texture Override
 ## Main features
 
 - Turkish / English UI toggle.
+- Light / Dark mode toggle; Light is default.
 - Micron adaptive profiles:
   - 80 micron / 0.08 mm
   - 120 micron / 0.12 mm
@@ -47,6 +48,12 @@ v3.7 — Sidebar Polish / Cloud Strict / Texture Override
   - Functional Strength
   - Thin Wall / Organic
   - Fast Draft
+
+## Documentation
+
+- [Ayar Rehberi TR](docs/SETTINGS.md) — presetler, micron sistemi, support profilleri ve fuzzy ayarları.
+- [Settings Guide EN](docs/SETTINGS_EN.md) — English guide for presets, micron behavior, supports, texture overrides, Cloud Strict, and troubleshooting.
+- [Modular Structure](docs/MODULAR_STRUCTURE.md) — how the repo is organized and how presets can be split further.
 
 ## GitHub Pages
 

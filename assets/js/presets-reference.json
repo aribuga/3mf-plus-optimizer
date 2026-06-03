@@ -1,0 +1,76 @@
+{
+  "build": "v3.9",
+  "note": "Reference summary only. Operational preset logic currently lives in assets/js/app.js.",
+  "presets": [
+    {
+      "id": "yasin_spec",
+      "name": "Yasin Aribuga Spec",
+      "micron": "120 recommended",
+      "support": "tree(auto), tree_hybrid, top Z 0.24, bottom Z 0.12",
+      "texture": "fuzzy external, thickness 0.22, point distance 0.30"
+    },
+    {
+      "id": "lamp_fuzzy",
+      "name": "Lamp Shade Fuzzy 0.88",
+      "micron": "120 quality / 160 production",
+      "walls": "2 walls, outer 0.42, inner 0.46, 0% infill",
+      "texture": "fuzzy external, 0.10 / 0.60 at 120 micron"
+    },
+    {
+      "id": "sand_paint",
+      "name": "Sand & Paint Prep",
+      "texture": "fuzzy off",
+      "shell": "stronger shell for sanding, primer and paint"
+    },
+    {
+      "id": "fine",
+      "name": "Fine Balanced"
+    },
+    {
+      "id": "visual",
+      "name": "Visual Polish"
+    },
+    {
+      "id": "strength",
+      "name": "Functional Strength"
+    },
+    {
+      "id": "organic",
+      "name": "Organic / Thin Wall"
+    },
+    {
+      "id": "support",
+      "name": "Support Master"
+    },
+    {
+      "id": "fast",
+      "name": "Fast"
+    },
+    {
+      "id": "mini",
+      "name": "Mini Detail"
+    },
+    {
+      "id": "vase",
+      "name": "Vase / Lamp Shell"
+    }
+  ],
+  "supportProfiles": [
+    "profile_default",
+    "easy_remove",
+    "balanced_tree",
+    "clean_underside",
+    "max_separation",
+    "yasin_support"
+  ],
+  "textureOverrides": [
+    "profile_default",
+    "keep_file",
+    "off",
+    "subtle",
+    "balanced",
+    "strong",
+    "yasin_spec",
+    "yasin_lite"
+  ]
+}
