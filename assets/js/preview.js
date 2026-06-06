@@ -198,7 +198,7 @@ if(stage && canvas){
 
   resetButton?.addEventListener('click', resetCamera);
   $('fileInput')?.addEventListener('change', (event)=>preview(event.target.files?.[0]));
-  $('dropZone')?.addEventListener('drop', (event)=>preview(event.dataTransfer?.files?.[0]));
+  $('drop')?.addEventListener('drop', (event)=>preview(event.dataTransfer?.files?.[0]));
   $('languageSelect')?.addEventListener('change', ()=>{
     if(!state.model) setMeta(copy().local);
   });
