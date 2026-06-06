@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>3MF+Optimizer v3.9 — Dark Mode / Modular / Soft Errors</title>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
+  </script>
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
@@ -31,7 +34,7 @@
       <section class="sideBlock">
         <div class="sideHd"><strong id="fileHeader">01 / Dosya</strong><span id="fileState" class="pill">bekliyor</span></div>
         <div class="sideBd">
-          <label id="drop" class="drop" for="fileInput"><input id="fileInput" type="file" accept=".3mf,.zip"><b id="dropTitle">.3mf bırak / seç</b><small id="dropHint">Dosya lokal açılır; sunucuya yüklenmez.</small></label>
+          <label id="drop" class="drop" for="fileInput"><input id="fileInput" type="file" accept=".3mf,.zip"><b id="dropTitle">.3mf bırak / siç</b><small id="dropHint">Dosya lokal açılır; sunucuya yüklenmez.</small></label>
           <div id="fileMeta" class="empty">Henüz dosya yok.</div>
         </div>
       </section>
@@ -115,8 +118,21 @@
       </section>
     </aside>
 
+    <div class="mainPane">
+    <section class="viewerPanel" aria-label="3D preview">
+      <div class="hd"><strong id="viewerHeader">03 / 3D Önizleme</strong><span id="viewerState" class="pill">bekliyor</span></div>
+      <div id="viewerStage" class="viewerStage">
+        <canvas id="viewerCanvas"></canvas>
+        <div id="viewerOverlay" class="viewerOverlay">3MF seçilince model burada görünür.</div>
+      </div>
+      <div class="viewerTools">
+        <span id="viewerMeta" class="hint">Three.js önizleme lokal çalışır.</span>
+        <button id="viewerResetBtn" class="ghost tiny" type="button" disabled>Merkeze al</button>
+      </div>
+    </section>
+
     <section class="card">
-      <div class="hd"><strong id="reportHeader">03 / Değişiklikler</strong><span id="summaryState" class="pill">hazır değil</span></div>
+      <div class="hd"><strong id="reportHeader">04 / Değişiklikler</strong><span id="summaryState" class="pill">hazır değil</span></div>
       <div class="bd">
         <div class="stats">
           <div class="stat"><b id="statFiles">0</b><span id="statFilesLabel">taranan entry</span></div>
@@ -127,7 +143,7 @@
         <div id="diffEmpty" class="empty">Henüz analiz yok.</div>
         <div id="diffWrap" class="tablewrap" style="display:none"><table><thead><tr><th>Tür</th><th>Ayar</th><th>Dosya</th><th>Eski</th><th>Yeni</th><th>Neden</th></tr></thead><tbody id="diffBody"></tbody></table></div>
       </div>
-      <div class="hd"><strong id="postHeader">04 / İndirme öncesi kontrol</strong><span id="verifyState" class="pill">bekliyor</span></div>
+      <div class="hd"><strong id="postHeader">05 / İndirme öncesi kontrol</strong><span id="verifyState" class="pill">bekliyor</span></div>
       <div class="bd stack">
         <div id="postCheck" class="empty">Optimize sonrası kritik değerler burada görünür.</div>
       </div>
@@ -139,10 +155,12 @@
         <p id="sliceNote" class="foot">Not: Bu dosyayı Bambu Studio’da açtıktan sonra mutlaka yeniden slice et. Mevcut plate/cache bilgileri eski slice’a ait olabilir; process değerleri değiştiği için nihai G-code’u Studio üretmeli.</p>
       </div>
     </section>
+    </div>
   </main>
   <footer id="siteFooter" class="siteFooter">by yasin aribuga · v3.9 dark mode · modular build · soft errors</footer>
 </div>
 
 <script src="assets/js/app.js"></script>
+<script src="assets/js/preview.js"></script>
 </body>
 </html>
